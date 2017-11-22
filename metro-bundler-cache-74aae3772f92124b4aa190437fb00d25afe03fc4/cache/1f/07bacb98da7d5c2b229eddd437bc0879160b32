@@ -1,0 +1,114 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require('./node_modules/react-transform-hmr/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class,
+    _temp,
+    _jsxFileName = '/home/l5vd5/watchman/Test/reactNative/Screen2.js';
+
+var _reactNative = require('react-native');
+
+var _nachosUi = require('nachos-ui');
+
+var _Container = require('./Container');
+
+var _Container2 = _interopRequireDefault(_Container);
+
+var _reactNativeRouterFlux = require('react-native-router-flux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+  Screen2: {
+    displayName: 'Screen2'
+  }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+  filename: '/home/l5vd5/watchman/Test/reactNative/Screen2.js',
+  components: _components,
+  locals: [module],
+  imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+  };
+}
+
+var Screen2 = _wrapComponent('Screen2')((_temp = _class = function (_React$Component) {
+  _inherits(Screen2, _React$Component);
+
+  function Screen2() {
+    _classCallCheck(this, Screen2);
+
+    return _possibleConstructorReturn(this, (Screen2.__proto__ || Object.getPrototypeOf(Screen2)).apply(this, arguments));
+  }
+
+  _createClass(Screen2, [{
+    key: 'render',
+    value: function render() {
+      return _react3.default.createElement(
+        _Container2.default,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 13
+          }
+        },
+        _react3.default.createElement(
+          _reactNative.Image,
+          { source: require('./img/body.jpg'), style: { flex: 1, width: '100%' }, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 14
+            }
+          },
+          _react3.default.createElement(
+            _nachosUi.Button,
+            { style: styles.head, onPress: function onPress() {
+                return _reactNativeRouterFlux.Actions.list();
+              }, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 15
+              }
+            },
+            ' \uBA38\uB9AC '
+          )
+        )
+      );
+    }
+  }]);
+
+  return Screen2;
+}(_react3.default.Component), _class.navigationOptions = {
+  title: '어디가 아프세요?'
+}, _temp));
+
+exports.default = Screen2;
+
+
+var styles = _reactNative.StyleSheet.create({
+  head: {
+    width: 100,
+    height: 100,
+    top: 10,
+    left: 10
+  }
+});

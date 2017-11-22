@@ -1,0 +1,66 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactNative = require('react-native');
+var _Switcher = require('./Switcher');var _Switcher2 = _interopRequireDefault(_Switcher);
+var _Radio = require('./Radio');var _Radio2 = _interopRequireDefault(_Radio);
+var _B = require('./typography/B');var _B2 = _interopRequireDefault(_B);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var defaultStyle = {
+  base: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 20 },
+
+  baseText: {
+    marginLeft: 10 } };
+
+var CustomOption = function CustomOption(_ref) {
+  var selected = _ref.selected,
+      value = _ref.value,
+      text = _ref.text,
+      onChange = _ref.onChange,
+      first = _ref.first,
+      last = _ref.last,
+      style = _ref.style,
+      textStyle = _ref.textStyle;
+  return _react2.default.createElement(_reactNative.TouchableOpacity, {
+    onPressOut: function onPressOut() {
+      return onChange(value);
+    },
+    activeOpacity: 0.8 }, _react2.default.createElement(_reactNative.View, { style: [defaultStyle.base, style] }, _react2.default.createElement(_Radio2.default, {
+    onChange: onChange,
+    value: value,
+    selected: selected }), _react2.default.createElement(_B2.default, { style: [defaultStyle.baseText, textStyle] }, text)));
+};
+
+var RadioGroup = function RadioGroup(props) {
+  var onChange = props.onChange,
+      defaultSelected = props.defaultSelected,
+      options = props.options,
+      values = props.values,
+      style = props.style,
+      textStyle = props.textStyle;
+
+  return _react2.default.createElement(_Switcher2.default, {
+    onChange: onChange,
+    defaultSelected: defaultSelected,
+    renderOption: CustomOption }, options.map(function (text, index) {
+    var value = values ? values[index] : text;
+    return _react2.default.createElement(CustomOption, {
+      value: value,
+      text: text,
+      style: style,
+      textStyle: textStyle,
+      key: value });
+  }));
+};
+
+RadioGroup.propTypes = {
+  onChange: _react.PropTypes.func,
+  options: _react.PropTypes.array.isRequired,
+  values: _react.PropTypes.array,
+  defaultSelected: _react.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+
+  style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  textStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]) };exports.default = RadioGroup;module.exports = exports['default'];

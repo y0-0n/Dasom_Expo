@@ -1,0 +1,23 @@
+module.exports = {
+    "sideBar": {
+        "home": "Home",
+        "language": "Language"
+    },
+    "navBar": {
+        "title": "Dasom"
+    },
+    "screen1": {
+        "useNow": "Use Now",
+        "howToUse": "How to Use"
+    },
+    "head": {
+        "head": "Head",
+        "eye": "Eye",
+        "mouth": "Mouth"
+    },
+    "symptom": {
+        "head": [["headache", "Headache"], ["dizziness", "Dizziness"], ["vertigo nos", "Vertigo nos"]],
+        "eye": [["hordeolum", "Hordeolum"], ["second", "Second"], ["third", "Third"]],
+        "stomach": [["first", "First"], ["second", "Second"], ["third", "Third"]]
+    }
+};

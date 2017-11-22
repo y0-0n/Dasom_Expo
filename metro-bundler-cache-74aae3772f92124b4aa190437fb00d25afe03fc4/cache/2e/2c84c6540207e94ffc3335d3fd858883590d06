@@ -1,0 +1,53 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactNative = require('react-native');
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var defaultTheme = {
+  BADGE_BACKGROUND: '#444',
+  BADGE_BORDER_RADIUS: 20,
+  BADGE_FONT_COLOR: '#fff',
+  BADGE_PADDING_VERTICAL: 4,
+  BADGE_PADDING_HORIZONTAL: 10,
+  BADGE_FONT_SIZE: 12 };
+
+_themeManager2.default.setSource('Badge', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    container: {
+      flexDirection: 'row' },
+
+    base: {
+      padding: theme.BADGE_PADDING_HORIZONTAL,
+      paddingVertical: theme.BADGE_PADDING_VERTICAL,
+      backgroundColor: theme.BADGE_BACKGROUND,
+      borderRadius: theme.BADGE_BORDER_RADIUS },
+
+    text: {
+      fontSize: theme.BADGE_FONT_SIZE,
+      color: theme.BADGE_FONT_COLOR } };
+};
+
+var Badge = function Badge(props) {
+  var color = props.color,
+      style = props.style,
+      textStyle = props.textStyle,
+      value = props.value;
+
+  var theme = props.theme || _themeManager2.default.getStyle('Badge');
+  var baseStyle = defaultStyle(theme);
+
+  return _react2.default.createElement(_reactNative.View, { style: baseStyle.container }, _react2.default.createElement(_reactNative.View, {
+    style: [baseStyle.base, color ? { backgroundColor: color } : {}, style] }, _react2.default.createElement(_reactNative.Text, { style: [baseStyle.text, textStyle] }, value)));
+};
+
+Badge.propTypes = {
+  color: _react.PropTypes.string,
+  style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  textStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]).isRequired,
+  theme: _react.PropTypes.object };exports.default = Badge;module.exports = exports['default'];

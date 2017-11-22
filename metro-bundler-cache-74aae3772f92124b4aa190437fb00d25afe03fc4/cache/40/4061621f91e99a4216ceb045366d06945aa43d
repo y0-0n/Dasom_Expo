@@ -1,0 +1,107 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();var _react = require("react");var _react2 = _interopRequireDefault(_react);
+var _reactNative = require("react-native");
+
+var _Badge = require('./Badge');var _Badge2 = _interopRequireDefault(_Badge);
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var defaultTheme = {
+  INDICATOR_SUCCESS_COLOR: '#66bd2b',
+  INDICATOR_WARNING_COLOR: '#ef4836',
+  INDICATOR_NORMAL_COLOR: '#2f8cff' };
+
+_themeManager2.default.setSource('Indicator', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    base: {
+      position: 'absolute',
+      top: 0,
+      left: 0 },
+
+    types: {
+      success: theme.INDICATOR_SUCCESS_COLOR,
+      warning: theme.INDICATOR_WARNING_COLOR,
+      normal: theme.INDICATOR_NORMAL_COLOR } };
+};var Indicator = function (_Component) {
+  _inherits(Indicator, _Component);function Indicator() {
+    var _ref;var _temp, _this, _ret;_classCallCheck(this, Indicator);for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Indicator.__proto__ || Object.getPrototypeOf(Indicator)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      childWidth: 0,
+      childHeight: 0 }, _this._handleSizeOfChild = function (event) {
+      var _event$nativeEvent$la = event.nativeEvent.layout,
+          width = _event$nativeEvent$la.width,
+          height = _event$nativeEvent$la.height;
+      _this.setState({
+        childWidth: width,
+        childHeight: height });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }_createClass(Indicator, [{ key: 'render', value: function render() {
+      var _props = this.props,
+          color = _props.color,
+          children = _props.children,
+          position = _props.position,
+          style = _props.style,
+          type = _props.type,
+          value = _props.value;
+
+      var theme = this.props.theme || _themeManager2.default.getStyle('Indicator');
+      var baseStyle = defaultStyle(theme);
+      var clonnedChildren = _react2.default.cloneElement(children, {
+        onLayout: this._handleSizeOfChild });
+
+      var badgeColor = color || baseStyle.types[type];
+
+      var NEGATIVE_OFFSET = -18;
+      var NEGATIVE_POSITION_OFFSET = -10;
+      var positionStyle = {
+        'left top': {
+          top: NEGATIVE_POSITION_OFFSET,
+          left: 0,
+          marginLeft: NEGATIVE_OFFSET },
+
+        'right top': {
+          top: NEGATIVE_POSITION_OFFSET,
+          left: this.state.childWidth,
+          marginLeft: NEGATIVE_OFFSET },
+
+        'left bottom': {
+          top: this.state.childHeight + NEGATIVE_POSITION_OFFSET,
+          left: 0,
+          marginLeft: NEGATIVE_OFFSET },
+
+        'right bottom': {
+          top: this.state.childHeight + NEGATIVE_POSITION_OFFSET,
+          left: this.state.childWidth,
+          marginLeft: NEGATIVE_OFFSET } };
+
+      return _react2.default.createElement(_reactNative.View, { style: style }, clonnedChildren, _react2.default.createElement(_reactNative.View, { style: baseStyle.base }, _react2.default.createElement(_Badge2.default, {
+        color: badgeColor,
+        value: value,
+        style: [positionStyle[position]] })));
+    } }]);return Indicator;
+}(_react.Component);Indicator.propTypes = { color: _react.PropTypes.string, children: _react.PropTypes.node, position: _react.PropTypes.oneOf(['left top', 'right top', 'left bottom', 'right bottom']), style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]), type: _react.PropTypes.oneOf(['normal', 'success', 'warning']), value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]).isRequired, theme: _react.PropTypes.object };Indicator.defaultProps = { type: 'normal', position: 'right top' };exports.default = Indicator;module.exports = exports['default'];

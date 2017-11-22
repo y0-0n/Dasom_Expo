@@ -1,0 +1,23 @@
+module.exports = {
+    "sideBar": {
+        "home": "홈",
+        "language": "언어"
+    },
+    "navBar": {
+        "title": "다솜"
+    },
+    "screen1": {
+        "useNow": "이용하기",
+        "howToUse": "이용방법"
+    },
+    "head": {
+        "head": "머리",
+        "eye": "눈",
+        "mouth": "입"
+    },
+    "symptom": {
+        "head": [["headache", "두통", "내과"], ["dizziness", "어지러움", "내과"], ["vertigo nos", "셋"]],
+        "eye": [["hordeolum", "다래끼"], ["second", "둘"], ["third", "셋"]],
+        "stomach": [["first", "하나"], ["second", "둘"], ["third", "셋"]]
+    }
+};

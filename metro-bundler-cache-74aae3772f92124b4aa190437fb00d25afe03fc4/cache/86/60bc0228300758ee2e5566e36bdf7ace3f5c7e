@@ -1,0 +1,79 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _react = require("react");var _react2 = _interopRequireDefault(_react);
+var _reactNative = require("react-native");
+var _md = require("md5");var _md2 = _interopRequireDefault(_md);
+var _queryString = require("query-string");var _queryString2 = _interopRequireDefault(_queryString);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}var Gravatar = function (_Component) {
+  _inherits(Gravatar, _Component);function Gravatar() {
+    _classCallCheck(this, Gravatar);return _possibleConstructorReturn(this, (Gravatar.__proto__ || Object.getPrototypeOf(Gravatar)).apply(this, arguments));
+  }_createClass(Gravatar, [{ key: 'render', value: function render() {
+      var base = this.props.protocol + 'www.gravatar.com/avatar/';
+      var query = _queryString2.default.stringify({
+        s: this.props.size * _reactNative.PixelRatio.get(),
+        r: this.props.rating,
+        d: this.props.default });
+
+      var formattedEmail = ('' + this.props.email).trim().toLowerCase();
+
+      var hash = void 0;
+      if (this.props.md5) {
+        hash = this.props.md5;
+      } else if (typeof this.props.email === 'string') {
+        hash = (0, _md2.default)(formattedEmail);
+      } else {
+        console.warn('Gravatar image can not be fetched. Either the "email" or "md5" prop must be specified.');
+
+        return;
+      }
+
+      var src = '' + base + hash + '?' + query;var rest = _objectWithoutProperties(this.props, []);
+      delete rest.md5;
+      delete rest.email;
+      delete rest.protocol;
+      delete rest.rating;
+      delete rest.size;
+      delete rest.style;
+      delete rest.className;
+      delete rest.default;
+      delete rest.circle;
+
+      return _react2.default.createElement(_reactNative.Image, _extends({
+        style: [{ width: this.props.size, height: this.props.size }, this.props.circle ? { borderRadius: this.props.size / 2 } : {}, this.props.style],
+
+        source: { uri: src } }, rest));
+    } }]);return Gravatar;
+}(_react.Component);Gravatar.displayName = 'Gravatar';Gravatar.propTypes = { circle: _react.PropTypes.bool, email: _react.PropTypes.string, md5: _react.PropTypes.string, size: _react.PropTypes.number, rating: _react.PropTypes.string, default: _react.PropTypes.string, protocol: _react.PropTypes.string, style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]) };Gravatar.defaultProps = { circle: false, email: null, md5: null, size: 50, rating: 'g', default: 'retro', protocol: 'https://' };exports.default = Gravatar;module.exports = exports['default'];

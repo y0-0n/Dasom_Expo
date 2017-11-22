@@ -1,0 +1,101 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactNative = require('react-native');
+var _P = require('./typography/P');var _P2 = _interopRequireDefault(_P);
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var defaultTheme = {
+  CARD_BORDER_RADIUS: 5,
+  CARD_BORDER_COLOR: '#eee',
+  CARD_MIN_WIDTH: 70,
+  CARD_MIN_HEIGHT: 200,
+  CARD_FOOTER_HEIGHT: 40,
+  CARD_FOOTER_FONT_SIZE: 14 };
+
+_themeManager2.default.setSource('Card', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    card: {
+      borderWidth: 1,
+      borderRadius: theme.CARD_BORDER_RADIUS,
+      borderColor: theme.CARD_BORDER_COLOR,
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      alignSelf: 'stretch',
+      minWidth: theme.CARD_MIN_WIDTH,
+      minHeight: theme.CARD_MIN_HEIGHT,
+      overflow: 'hidden' },
+
+    body: { position: 'relative', alignSelf: 'stretch', flex: 1 },
+    imageWrapper: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0 },
+
+    image: { flex: 1, resizeMode: 'cover' },
+    footer: {
+      overflow: 'hidden',
+      borderTopWidth: 1,
+      borderColor: '#efefef',
+      height: theme.CARD_FOOTER_HEIGHT,
+      paddingHorizontal: 8,
+      alignSelf: 'stretch' },
+
+    footerText: {
+      fontSize: theme.CARD_FOOTER_FONT_SIZE,
+      lineHeight: theme.CARD_FOOTER_HEIGHT,
+      paddingTop: 0,
+      paddingBottom: 0 } };
+};
+
+var Card = function Card(props) {
+  var width = props.width,
+      height = props.height;
+
+  var theme = props.theme || _themeManager2.default.getStyle('Card');
+  var baseStyle = defaultStyle(theme);
+
+  var bodyComponent = void 0;
+  if (props.bodyContent) {
+    bodyComponent = props.bodyContent;
+  }
+
+  var imageComponent = void 0;
+  if (props.image) {
+    imageComponent = _react2.default.createElement(_reactNative.View, { style: baseStyle.imageWrapper }, _react2.default.createElement(_reactNative.Image, {
+      source: { uri: props.image },
+      style: [baseStyle.image, props.imageStyle] }));
+  }
+
+  var footerComponent = void 0;
+  if (props.footerContent) {
+    var isString = typeof props.footerContent === 'string';var footerContent = props.footerContent;
+    if (isString) {
+      footerContent = _react2.default.createElement(_P2.default, { style: baseStyle.footerText, numberOfLines: 1 }, footerContent);
+    }
+
+    footerComponent = _react2.default.createElement(_reactNative.View, { style: [baseStyle.footer, props.footerStyle] }, footerContent);
+  }
+
+  return _react2.default.createElement(_reactNative.View, { style: [baseStyle.card, { width: width, height: height }, props.style] }, _react2.default.createElement(_reactNative.View, { style: baseStyle.body }, imageComponent, bodyComponent), footerComponent);
+};
+
+Card.propTypes = {
+  width: _react.PropTypes.number,
+  height: _react.PropTypes.number,
+  style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  bodyContent: _react.PropTypes.node,
+  image: _react.PropTypes.string,
+  imageStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+
+  footerContent: _react.PropTypes.oneOfType([_react2.default.PropTypes.node, _react2.default.PropTypes.string]),
+
+  footerStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+
+  theme: _react.PropTypes.object };exports.default = Card;module.exports = exports['default'];

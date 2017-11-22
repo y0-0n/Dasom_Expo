@@ -1,0 +1,173 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require('./node_modules/react-transform-hmr/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = '/home/l5vd5/watchman/reactNative/App.js';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Screen = require('./Screen1');
+
+var _Screen2 = _interopRequireDefault(_Screen);
+
+var _Screen3 = require('./Screen2');
+
+var _Screen4 = _interopRequireDefault(_Screen3);
+
+var _Head = require('./Head');
+
+var _Head2 = _interopRequireDefault(_Head);
+
+var _Symptom = require('./Symptom');
+
+var _Symptom2 = _interopRequireDefault(_Symptom);
+
+var _Screen5 = require('./Screen3');
+
+var _Screen6 = _interopRequireDefault(_Screen5);
+
+var _Language = require('./Language');
+
+var _Language2 = _interopRequireDefault(_Language);
+
+var _Map = require('./Map');
+
+var _Map2 = _interopRequireDefault(_Map);
+
+var _reactNativeRouterFlux = require('react-native-router-flux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+    App: {
+        displayName: 'App'
+    }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: '/home/l5vd5/watchman/reactNative/App.js',
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+    return function (Component) {
+        return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+}
+
+var App = _wrapComponent('App')(function (_React$Component) {
+    _inherits(App, _React$Component);
+
+    function App() {
+        _classCallCheck(this, App);
+
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+        _this.state = {
+            fontLoaded: false
+        };
+        return _this;
+    }
+
+    _createClass(App, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            return regeneratorRuntime.async(function componentWillMount$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return regeneratorRuntime.awrap(Expo.Font.loadAsync({
+                                'Roboto': require('native-base/Fonts/Roboto.ttf'),
+                                'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+                                'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf')
+                            }));
+
+                        case 2:
+                            this.setState({ fontLoaded: true });
+
+                        case 3:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, null, this);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return this.state.fontLoaded ? _react3.default.createElement(
+                _reactNativeRouterFlux.Router,
+                {
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 30
+                    }
+                },
+                _react3.default.createElement(
+                    _reactNativeRouterFlux.Scene,
+                    { key: 'root', hideNavBar: true, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 31
+                        }
+                    },
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'screen1', component: _Screen2.default, title: 'Home', initial: true, language: 'eng', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 32
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'screen2', component: _Screen4.default, title: 'Select', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 33
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'head', component: _Head2.default, title: 'Head', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 34
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'screen3', component: _Screen6.default, title: 'Result', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 35
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'symptom', component: _Symptom2.default, title: 'List', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 36
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'language', component: _Language2.default, title: 'Language', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 37
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'map', component: _Map2.default, title: 'Map', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 38
+                        }
+                    })
+                )
+            ) : null;
+        }
+    }]);
+
+    return App;
+}(_react3.default.Component));
+
+exports.default = App;

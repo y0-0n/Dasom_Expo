@@ -1,0 +1,106 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();var _react = require("react");var _react2 = _interopRequireDefault(_react);
+var _reactNative = require("react-native");
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var defaultTheme = {
+  SPINNER_SIZE: 25,
+  SPINNER_COLOR: '#2f8cff',
+  SPINNER_DURATION: 450 };
+
+_themeManager2.default.setSource('Spinner', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    base: { flexDirection: 'row' } };
+};var Spinner = function (_Component) {
+  _inherits(Spinner, _Component);
+
+  function Spinner(props) {
+    _classCallCheck(this, Spinner);var _this = _possibleConstructorReturn(this, (Spinner.__proto__ || Object.getPrototypeOf(Spinner)).call(this, props));_this._setupAnimation = function () {
+      var createAnimation = function createAnimation(value) {
+        return _reactNative.Animated.sequence([_reactNative.Animated.timing(value, {
+          toValue: 1,
+          duration: _this.props.duration,
+          easing: _reactNative.Easing.ease }), _reactNative.Animated.timing(value, {
+          toValue: 0,
+          duration: _this.props.duration,
+          easing: _reactNative.Easing.ease })]);
+      };
+
+      var scheduleAnimation = function scheduleAnimation(value) {
+        createAnimation(value).start();
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            resolve();
+          }, _this.props.duration);
+        });
+      };
+
+      var animate = function animate() {
+        if (_this._shouldAnimationStop) {
+          return;
+        }
+        scheduleAnimation(_this.firstAnimatedValue).then(function () {
+          return scheduleAnimation(_this.secondAnimatedValue);
+        }).then(function () {
+          return scheduleAnimation(_this.thirdAnimatedValue);
+        }).then(function () {
+          return animate();
+        });
+      };
+
+      animate();
+    };_this._interpolate = function (value) {
+      var scale = value.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0.4, 1] });
+
+      return scale;
+    };_this.firstAnimatedValue = new _reactNative.Animated.Value(0);_this.secondAnimatedValue = new _reactNative.Animated.Value(0);_this.thirdAnimatedValue = new _reactNative.Animated.Value(0);_this._shouldAnimationStop = false;return _this;
+  }_createClass(Spinner, [{ key: 'componentDidMount', value: function componentDidMount() {
+      this._shouldAnimationStop = false;this._setupAnimation();
+    } }, { key: 'componentWillUnmount', value: function componentWillUnmount() {
+      this._shouldAnimationStop = true;
+    } }, { key: 'render', value: function render() {
+      var theme = this.props.theme || _themeManager2.default.getStyle('Spinner');
+      var baseStyle = defaultStyle(theme);
+      var spinnerItem = {
+        width: this.props.size || theme.SPINNER_SIZE,
+        height: this.props.size || theme.SPINNER_SIZE,
+        borderRadius: this.props.size || theme.SPINNER_SIZE,
+        backgroundColor: this.props.color || theme.SPINNER_COLOR };
+
+      var firstScale = this._interpolate(this.firstAnimatedValue);
+      var secondScale = this._interpolate(this.secondAnimatedValue);
+      var thirdScale = this._interpolate(this.thirdAnimatedValue);
+
+      return _react2.default.createElement(_reactNative.View, { style: baseStyle.base }, _react2.default.createElement(_reactNative.Animated.View, {
+        style: [spinnerItem, { transform: [{ scale: firstScale }] }] }), _react2.default.createElement(_reactNative.Animated.View, {
+        style: [spinnerItem, { transform: [{ scale: secondScale }] }] }), _react2.default.createElement(_reactNative.Animated.View, {
+        style: [spinnerItem, { transform: [{ scale: thirdScale }] }] }));
+    } }]);return Spinner;
+}(_react.Component);Spinner.propTypes = { duration: _react.PropTypes.number, size: _react.PropTypes.number, color: _react.PropTypes.string, theme: _react.PropTypes.object };Spinner.defaultProps = { duration: 450 };exports.default = Spinner;module.exports = exports['default'];

@@ -1,0 +1,141 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _Button = require('./Button');var _Button2 = _interopRequireDefault(_Button);
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+var defaultTheme = {
+  BUTTON_BACKGROUND: '#fff',
+  BUTTON_BORDER_WIDTH: 1,
+  BUTTON_BORDER_COLOR: '#2f8cff',
+  BUTTON_BORDER_RADIUS: 5,
+  BUTTON_HEIGHT: 30,
+  BUTTON_FONT_COLOR: '#2f8cff',
+  BUTTON_FONT_SIZE: 14,
+  BUTTON_FONT_WEIGHT: 'normal',
+  BUTTON_SELECTED_BACKGROUND: '#2f8cff',
+  BUTTON_SELECTED_FONT_COLOR: '#fff',
+  BUTTON_SELECTED_BORDER_COLOR: '#2f8cff',
+  BUTTON_ICON_SIZE: 15,
+  BUTTON_ICON_POSITION: 'left',
+  BUTTON_ICON_COLOR: '#2f8cff',
+  BUTTON_ACTIVE_ICON_COLOR: '#fff' };
+
+_themeManager2.default.setSource('SegmentedControlButton', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    base: {
+      height: theme.BUTTON_HEIGHT,
+      padding: 0,
+      paddingHorizontal: 0,
+      borderWidth: theme.BUTTON_BORDER_WIDTH,
+      borderColor: theme.BUTTON_BORDER_COLOR,
+      backgroundColor: theme.BUTTON_BACKGROUND },
+
+    baseText: {
+      color: theme.BUTTON_FONT_COLOR,
+      fontSize: theme.BUTTON_FONT_SIZE,
+      fontWeight: theme.BUTTON_FONT_WEIGHT },
+
+    states: {
+      selected: {
+        backgroundColor: theme.BUTTON_SELECTED_BACKGROUND,
+        borderColor: theme.BUTTON_SELECTED_BORDER_COLOR },
+
+      selectedText: {
+        color: theme.BUTTON_SELECTED_FONT_COLOR } },
+
+    first: {
+      row: {
+        borderBottomLeftRadius: theme.BUTTON_BORDER_RADIUS,
+        borderTopLeftRadius: theme.BUTTON_BORDER_RADIUS,
+        borderRightWidth: 0 },
+
+      column: {
+        borderTopLeftRadius: theme.BUTTON_BORDER_RADIUS,
+        borderTopRightRadius: theme.BUTTON_BORDER_RADIUS,
+        borderBottomWidth: 0 } },
+
+    last: {
+      row: {
+        borderBottomRightRadius: theme.BUTTON_BORDER_RADIUS,
+        borderTopRightRadius: theme.BUTTON_BORDER_RADIUS,
+        borderLeftWidth: 0 },
+
+      column: {
+        borderBottomLeftRadius: theme.BUTTON_BORDER_RADIUS,
+        borderBottomRightRadius: theme.BUTTON_BORDER_RADIUS,
+        borderTopWidth: 0 } } };
+};
+
+var SegmentedControlButton = function SegmentedControlButton(props) {
+  var value = props.value,
+      text = props.text,
+      style = props.style,
+      textStyle = props.textStyle,
+      direction = props.direction,
+      first = props.first,
+      last = props.last,
+      selected = props.selected,
+      onChange = props.onChange;
+
+  var theme = props.theme || _themeManager2.default.getStyle('SegmentedControlButton');
+  var baseStyle = defaultStyle(theme);
+
+  var switcherProp = onChange && {
+    onPress: function onPress() {},
+    onPressOut: onChange.bind(null, value) };var rest = _objectWithoutProperties(props, []);
+  delete rest.direction;
+  delete rest.first;
+  delete rest.last;
+  delete rest.value;
+  delete rest.text;
+  delete rest.onChange;
+  delete rest.style;
+  delete rest.textStyle;
+  delete rest.theme;
+  delete rest.kind;
+
+  return _react2.default.createElement(_Button2.default, _extends({
+    iconColor: theme.BUTTON_ICON_COLOR,
+    iconActiveColor: theme.BUTTON_ACTIVE_ICON_COLOR,
+    iconSize: theme.BUTTON_ICON_SIZE,
+    iconPosition: theme.BUTTON_ICON_POSITION,
+    kind: 'squared' }, rest, switcherProp, {
+    style: [baseStyle.base, first ? baseStyle.first[direction] : {}, last ? baseStyle.last[direction] : {}, selected ? baseStyle.states.selected : {}, style],
+
+    textStyle: [baseStyle.baseText, selected ? baseStyle.states.selectedText : {}, textStyle] }), text);
+};
+
+SegmentedControlButton.propTypes = {
+  value: _react.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.string]),
+
+  text: _react.PropTypes.string,
+  style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  textStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  uppercase: _react.PropTypes.bool,
+  theme: _react.PropTypes.object,
+
+  direction: _react.PropTypes.oneOf(['row', 'column']),
+  onChange: _react.PropTypes.func,
+  first: _react.PropTypes.bool,
+  last: _react.PropTypes.bool,
+  selected: _react.PropTypes.bool };
+
+SegmentedControlButton.defaultProps = {
+  uppercase: false };exports.default = SegmentedControlButton;module.exports = exports['default'];

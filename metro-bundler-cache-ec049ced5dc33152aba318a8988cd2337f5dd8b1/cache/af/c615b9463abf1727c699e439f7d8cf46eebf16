@@ -1,0 +1,41 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _SegmentedControlButton = require('./SegmentedControlButton');var _SegmentedControlButton2 = _interopRequireDefault(_SegmentedControlButton);
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var theme = _extends({}, _themeManager2.default.getStyle('SegmentedControlButton'), {
+  BUTTON_BORDER_COLOR: '#ddd',
+  BUTTON_BORDER_RADIUS: 0,
+  BUTTON_HEIGHT: 50,
+  BUTTON_FONT_COLOR: '#bdc1cc',
+  BUTTON_FONT_SIZE: 12,
+  BUTTON_FONT_WEIGHT: '500',
+  BUTTON_ICON_SIZE: 20,
+  BUTTON_ICON_COLOR: '#bdc1cc' });
+
+_themeManager2.default.setSource('TabButton', function () {
+  return theme;
+});
+
+var TabButton = function TabButton(props) {
+  var tabProps = _extends({}, props, {
+    theme: props.theme || _themeManager2.default.getStyle('TabButton') });
+
+  return _react2.default.createElement(_SegmentedControlButton2.default, tabProps);
+};
+
+TabButton.propTypes = {
+  uppercase: _react.PropTypes.bool,
+  theme: _react.PropTypes.object };
+
+TabButton.defaultProps = {
+  uppercase: true };exports.default = TabButton;module.exports = exports['default'];

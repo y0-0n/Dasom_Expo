@@ -1,0 +1,142 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactNative = require('react-native');
+var _Ionicons = require('@expo/vector-icons/Ionicons');var _Ionicons2 = _interopRequireDefault(_Ionicons);
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var defaultTheme = {
+  CHECKBOX_SIZE: 26,
+  CHECKBOX_COLOR: '#fff',
+  CHECKBOX_BORDER_WIDTH: 2,
+  CHECKBOX_BORDER_COLOR: '#bdc1cc',
+  CHECKBOX_CHECK_ICON_NAME: 'md-checkmark',
+  CHECKBOX_CHECK_ICON_SIZE: 20,
+  CHECKBOX_CHECK_ICON_COLOR: '#fff',
+  CHECKBOX_CHECK_CIRCLE_COLOR: '#2f8cff',
+  CHECKBOX_CHECKED_BG_COLOR: '#2f8cff',
+  CHECKBOX_CHECKED_BORDER_COLOR: '#2f8cff',
+  CHECKBOX_CIRCLE_RADIUS: 9999,
+  CHECKBOX_ROUNDED_RADIUS: 5 };
+
+_themeManager2.default.setSource('Checkbox', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    base: _extends({
+      position: 'relative',
+      width: theme.CHECKBOX_SIZE,
+      height: theme.CHECKBOX_SIZE,
+      borderWidth: theme.CHECKBOX_BORDER_WIDTH,
+      justifyContent: 'center',
+      alignItems: 'center' }, _reactNative.Platform.OS === 'web' ? { textAlign: 'center' } : {}),
+
+    kind: {
+      circle: {
+
+        borderRadius: theme.CHECKBOX_CIRCLE_RADIUS },
+
+      rounded: {
+        borderRadius: theme.CHECKBOX_ROUNDED_RADIUS } },
+
+    states: {
+      normal: {
+        borderColor: theme.CHECKBOX_BORDER_COLOR },
+
+      checkedIcon: {
+        borderColor: theme.CHECKBOX_CHECKED_BORDER_COLOR,
+        backgroundColor: theme.CHECKBOX_CHECKED_BG_COLOR } },
+
+    check: {
+      icon: {
+        backgroundColor: 'transparent',
+        marginTop: 2 },
+
+      circle: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        backgroundColor: theme.CHECKBOX_CHECK_CIRCLE_COLOR } } };
+};
+
+var Checkbox = function Checkbox(props) {
+  var activeOpacity = props.activeOpacity,
+      disabled = props.disabled,
+      kind = props.kind,
+      checked = props.checked,
+      onValueChange = props.onValueChange,
+      style = props.style,
+      disabledStyle = props.disabledStyle,
+      iconName = props.iconName,
+      checkType = props.checkType,
+      value = props.value,
+      selected = props.selected,
+      onChange = props.onChange;
+
+  var theme = props.theme || _themeManager2.default.getStyle('Checkbox');
+  var baseStyle = defaultStyle(theme);
+
+  var switcherProp = onChange && {
+    onPress: function onPress() {},
+    onPressOut: onChange.bind(null, value) };
+
+  var isChecked = checked || selected;
+
+  var CheckComponent = void 0;
+  if (isChecked) {
+    CheckComponent = _react2.default.createElement(_reactNative.View, { style: [baseStyle.check.circle] });
+    if (checkType === 'icon') {
+      CheckComponent = _react2.default.createElement(_Ionicons2.default, {
+        name: iconName || theme.CHECKBOX_CHECK_ICON_NAME,
+        size: theme.CHECKBOX_CHECK_ICON_SIZE,
+        color: theme.CHECKBOX_CHECK_ICON_COLOR,
+        style: baseStyle.check.icon });
+    }
+  }
+
+  var checkboxStyle = [baseStyle.base, baseStyle.kind[kind], isChecked && checkType === 'icon' ? baseStyle.states.checkedIcon : baseStyle.states.normal, style];
+
+  return _react2.default.createElement(_reactNative.View, { style: disabled ? disabledStyle : {} }, _react2.default.createElement(_reactNative.TouchableOpacity, _extends({
+    activeOpacity: activeOpacity,
+    disabled: disabled,
+    style: checkboxStyle,
+    onPress: function onPress() {
+      return onValueChange(!checked);
+    } }, switcherProp), CheckComponent));
+};
+
+Checkbox.propTypes = {
+  activeOpacity: _react.PropTypes.number,
+  disabled: _react.PropTypes.bool,
+  kind: _react.PropTypes.oneOf(['circle', 'rounded']),
+  style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  disabledStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+
+  checked: _react.PropTypes.bool,
+  checkType: _react.PropTypes.oneOf(['icon', 'circle']),
+  onValueChange: _react.PropTypes.func,
+  iconName: _react.PropTypes.string,
+  theme: _react.PropTypes.object,
+
+  value: _react.PropTypes.string,
+  onChange: _react.PropTypes.func,
+  selected: _react.PropTypes.bool };
+
+Checkbox.defaultProps = {
+  activeOpacity: 0.8,
+  disabled: false,
+  kind: 'rounded',
+  disabledStyle: { opacity: 0.3 },
+  checked: false,
+  onValueChange: function onValueChange() {},
+  checkType: 'icon' };exports.default = Checkbox;module.exports = exports['default'];

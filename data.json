@@ -1,0 +1,191 @@
+{   
+    "symptom": { 
+        "head": [
+            ["fever", [0, 2, 9]],
+            ["hair loss", [6]],
+            ["dizziness", [0, 2, 3]],
+            ["feeling heavy", [0, 2, 3]],
+            ["head is spinning", [0, 2, 3]],
+            ["light headed", [0, 2, 3]],
+            ["feeling like walking on the cloud", [0, 2, 3]],
+            ["headache", [0, 2, 3]],
+            ["recurrent headache", [0, 2, 3]],
+            ["sudden bursting headache", [0, 2, 3]],
+            ["faint", [0, 2, 3]],
+            ["seizure", [0, 2, 3]]
+        ],
+        "eye": [
+            ["hordeolum", [1]],
+            ["conjunctivitis", [1]],
+            ["eye discharge", [1]],
+            ["burning eye", [1]],
+            ["dazzling", [1]],
+            ["bad eyesight", [1]],
+            ["blurry vision", [1]],
+            ["too much tear", [1]],
+            ["dry eye", [1]],
+            ["irritation caused by poling of eyelashes", [1, 7]],
+            ["irritation", [1]],
+            ["contact lens related", [1]],
+            ["feeling of irritation", [1]],
+            ["eyelid tremor", [1]],
+            ["photophobia", [1]]
+        ],
+        "nose": [
+            ["clogged nose", [2, 0]],
+            ["runny nose", [2, 0]],
+            ["nose bleeding", [2, 0]],
+            ["skin wear out", [2, 0]],
+            ["broken nose", [4]],
+            ["difficulty in breathing", [2, 0]],
+            ["snoring", [2, 5]],
+            ["itching nose", [2, 0]]
+        ],
+        "tooth": [ 
+            ["broken tooth/teeth", [5]],
+            ["gum bleeding", [5]],
+            ["gum swollen", [5]],
+            ["shaking tooth/teeth", [5]],
+            ["cold teeth/tooth", [5]],
+            ["difficulty with chewing", [5]],
+            ["missing tooth/teeth", [5]],
+            ["regular checkup", [5]],
+            ["decayed tooth", [5]],
+            ["wisdom teeth", [5]]
+        ],
+        "mouth": [
+            ["cough", [2, 0, 9]],
+            ["sneeze", [2, 0, 9]],
+            ["bad breath", [5]],
+            ["sputum", [2]],
+            ["dysphagia", [2]],
+            ["have canker sores in mouth", [0]],
+            ["ulcer in oral cavity", [0, 5]],
+            ["bleeding gums", [0, 5]]
+        ],
+        "ear": [
+            ["torn", [6, 7]],
+            ["bleeding", [2]],
+            ["ringing in the ears", [2]],
+            ["water inside", [2]],
+            ["swollen and painful", [2]],
+            ["problem with pierced ears", [6]],
+            ["pain", [2]],
+            ["hearing loss", [2]],
+            ["foreign body in ear", [2]]
+        ],
+        "throat": [
+            ["cough", [2]],
+            ["sputum", [2]],
+            ["sore throat", [2]],
+            ["cervical disk", [4]],
+            ["feeling something stuck inside", [2, 3]],
+            ["mass on anterior neck", [0]],
+            ["bloody sputum", [0]],
+            ["posterior neck pain", [0, 3]],
+            ["hoarseness", [0]]
+        ],
+        "chest": [
+            ["digestive problem", [0]],
+            ["heartburn", [0]],
+            ["acid reflux", [0]],
+            ["vomit", [0]],
+            ["stuffy", [0]],
+            ["cough", [0, 2]],
+            ["sputum", [0, 2]],
+            ["chest pain", [0]],
+            ["dyspnea", [0]],
+            ["sore throat", [0]],
+            ["cannot breath when lie down", [0]],
+            ["palpitation", [0]],
+            ["hoarseness", [0]]
+        ],
+        "stomach": [
+            ["epigastric discomfort", [0]],
+            ["acute upper abdominal pain", [0]],
+            ["acute lower abdominal pain", [0]],
+            ["vomit", [0]],
+            ["diarrhea", [0]],
+            ["constipation", [0]],
+            ["bloody vomitus", [0]],
+            ["bloody stool", [0]],
+            ["abdominal distension", [0]],
+            ["anorexia", [0]],
+            ["nausea", [0]],
+            ["heartburn", [0]],
+            ["flank pain", [0]],
+            ["abdominal lump", [0]],
+            ["sharp pain", [0]],
+            ["menstral pain", [0]]
+        ],
+        "skin": [
+            ["torn", [6]],
+            ["pimple", [6]],
+            ["atopy", [6]],
+            ["itch", [6]],
+            ["burn", [6]],
+            ["rash", [6]],
+            ["urticaria", [6]],
+            ["yellowish skin/jaundice", [0]],
+            ["blister", [6]],
+            ["skin pain", [6]],
+            ["dry skin", [6]],
+            ["itching toe", [6]],
+            ["problem with nail", [6]],
+            ["bruising", [6, 0]],
+            ["sunburn", [6]],
+            ["mole removal", [6]],
+            ["moles appear", [6]],
+            ["filler", [6]],
+            ["botox", [6]],
+            ["eyebrow tattoo", [6]]
+        ],
+        "arm": [
+            ["broken", [4]],
+            ["shoulder pain", [4]],
+            ["wrist pain", [4]],
+            ["wrist sprain", [4]],
+            ["finger pain", [4]],
+            ["hands(nail) eczema", [6]],
+            ["problem with nail", [6, 4]],
+            ["introvertive nail", [4]],
+            ["burn", [6 , 8]]
+        ],
+        "leg": [
+            ["broken", [4]],
+            ["thigh pain", [4]],
+            ["knee pain", [4]],
+            ["knee sprain", [4]],
+            ["ankle pain", [4]],
+            ["ankle sprain", [4]],
+            ["toe pain", [4]],
+            ["toe sprain", [4]],
+            ["eczema", [6]],
+            ["problem with toenail", [6, 4]],
+            ["introvertive toenail", [4]],
+            ["burn", [6, 8]]
+        ],
+        "bottom": [
+            ["bottom pain", [4]],
+            ["pelvis pain", [4]],
+            ["bottom/crotch eczema", [6]],
+            ["bottom boil/acne", [6, 8]]
+        ]
+    },
+    "head": [
+        "head",
+        "eye",
+        "mouth",
+        "nose",
+        "tooth",
+        "ear"
+    ],
+    "throatchest": [
+        "throat",
+        "chest"
+    ],
+    "armleg": [
+        "arm",
+        "leg"
+    ]
+}

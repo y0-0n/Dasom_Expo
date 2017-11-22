@@ -1,0 +1,131 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();var _react = require("react");var _react2 = _interopRequireDefault(_react);
+var _reactNative = require("react-native");
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var defaultTheme = {
+  CAROUSEL_WIDTH: 300,
+  CAROUSEL_HEIGHT: 300,
+  CAROUSEL_INDICATOR_SIZE: 24,
+  CAROUSEL_INDICATOR_COLOR: '#bdc1cc',
+  CAROUSEL_INDICATOR_ACTIVE_COLOR: '#2f8cff' };
+
+_themeManager2.default.setSource('Carousel', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    base: { flex: 1, position: 'relative' },
+    image: { flex: 1, resizeMode: 'cover' },
+    indicator: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 5,
+      justifyContent: 'center',
+      flexDirection: 'row',
+      backgroundColor: 'transparent' },
+
+    indicatorItem: {
+      letterSpacing: 6,
+      color: theme.CAROUSEL_INDICATOR_COLOR },
+
+    indicatorActiveItem: {
+      color: theme.CAROUSEL_INDICATOR_ACTIVE_COLOR } };
+};var Carousel = function (_Component) {
+  _inherits(Carousel, _Component);function Carousel() {
+    var _ref;var _temp, _this, _ret;_classCallCheck(this, Carousel);for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Carousel.__proto__ || Object.getPrototypeOf(Carousel)).call.apply(_ref, [this].concat(args))), _this), _this.state = { activeSlide: 0 }, _this._onAnimationEnd = function (e) {
+      var theme = _this.props.theme || _themeManager2.default.getStyle('Carousel');
+      var width = _this.props.width || theme.CAROUSEL_WIDTH;
+      var activeSlide = e.nativeEvent.contentOffset.x / width;
+      _this.setState({ activeSlide: activeSlide });
+
+      if (_this.props.onChange) {
+        _this.props.onChange(activeSlide);
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }_createClass(Carousel, [{ key: '_renderIndicator', value: function _renderIndicator() {
+      var _this2 = this;if (this.props.hideIndicators) {
+        return;
+      }var theme = this.props.theme || _themeManager2.default.getStyle('Carousel');var baseStyle = defaultStyle(theme);var indicators = [];var indicatorStyle = {};var content = this.props.children;if (!content) {
+        content = this.props.images;
+      }content.forEach(function (child, index) {
+        indicatorStyle = _extends({}, baseStyle.indicatorItem, _this2.props.indicatorStyle, { fontSize: _this2.props.indicatorSize || theme.CAROUSEL_INDICATOR_SIZE });if (_this2.state.activeSlide === index) {
+          indicatorStyle = _extends({}, indicatorStyle, baseStyle.indicatorActiveItem, _this2.props.indicatorActiveStyle);
+        }indicators.push(_react2.default.createElement(_reactNative.Text, { style: [indicatorStyle], key: index, onPress: _this2._indicatorPressed.bind(_this2, index) }, "\u2022"));
+      });return _react2.default.createElement(_reactNative.View, { style: [baseStyle.indicator] }, indicators);
+    } }, { key: '_indicatorPressed', value: function _indicatorPressed(activeSlide) {
+      this.setState({ activeSlide: activeSlide });
+      var theme = this.props.theme || _themeManager2.default.getStyle('Carousel');
+      var width = this.props.width || theme.CAROUSEL_WIDTH;
+      if (this._scrollView) {
+        this._scrollView.scrollTo({
+          x: activeSlide * width });
+      }
+    } }, { key: 'render', value: function render() {
+      var _this3 = this;
+      var theme = this.props.theme || _themeManager2.default.getStyle('Carousel');
+      var width = this.props.width || theme.CAROUSEL_WIDTH;
+      var height = this.props.height || theme.CAROUSEL_HEIGHT;
+
+      var baseStyle = defaultStyle(theme);
+      var content = this.props.children;
+      if (!content) {
+        content = this.props.images.map(function (image, index) {
+          return _react2.default.createElement(_reactNative.Image, {
+            key: index,
+            style: [baseStyle.image, { width: width, height: height }],
+            source: { uri: image } });
+        });
+      }
+
+      return _react2.default.createElement(_reactNative.View, {
+        style: [baseStyle.base, { width: width, height: height }, this.props.style] }, _react2.default.createElement(_reactNative.ScrollView, {
+        bounces: false,
+        ref: function ref(scrollView) {
+          _this3._scrollView = scrollView;
+        },
+        horizontal: true,
+        decelerationRate: 'fast',
+        directionalLockEnabled: true,
+        pagingEnabled: true,
+        removeClippedSubviews: true,
+        showsHorizontalScrollIndicator: false,
+        automaticallyAdjustContentInsets: false,
+        scrollEventThrottle: 200,
+        height: this.props.height,
+        onMomentumScrollEnd: this._onAnimationEnd }, content), this._renderIndicator());
+    } }]);return Carousel;
+}(_react.Component);Carousel.propTypes = { hideIndicators: _react.PropTypes.bool, indicatorActiveStyle: _react.PropTypes.object, indicatorStyle: _react.PropTypes.object, indicatorSize: _react.PropTypes.number, width: _react.PropTypes.number, height: _react.PropTypes.number, images: _react.PropTypes.array, onChange: _react.PropTypes.func, children: _react.PropTypes.node, style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]), theme: _react.PropTypes.object };Carousel.defaultProps = { hideIndicators: false, images: [], onChange: function onChange() {} };exports.default = Carousel;module.exports = exports['default'];

@@ -1,0 +1,110 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require('./node_modules/react-transform-hmr/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = '/home/l5vd5/watchman/Test/reactNative/App.js';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactNative = require('react-native');
+
+var _Screen = require('./Screen1');
+
+var _Screen2 = _interopRequireDefault(_Screen);
+
+var _Screen3 = require('./Screen2');
+
+var _Screen4 = _interopRequireDefault(_Screen3);
+
+var _List = require('./List');
+
+var _List2 = _interopRequireDefault(_List);
+
+var _reactNativeRouterFlux = require('react-native-router-flux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+    App: {
+        displayName: 'App'
+    }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: '/home/l5vd5/watchman/Test/reactNative/App.js',
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+    return function (Component) {
+        return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+}
+
+var App = _wrapComponent('App')(function (_React$Component) {
+    _inherits(App, _React$Component);
+
+    function App() {
+        _classCallCheck(this, App);
+
+        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    }
+
+    _createClass(App, [{
+        key: 'render',
+        value: function render() {
+            return _react3.default.createElement(
+                _reactNativeRouterFlux.Router,
+                {
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 10
+                    }
+                },
+                _react3.default.createElement(
+                    _reactNativeRouterFlux.Scene,
+                    { key: 'root', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 11
+                        }
+                    },
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'screen1', component: _Screen2.default, title: 'Home', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 12
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'screen2', component: _Screen4.default, title: 'Select', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 13
+                        }
+                    }),
+                    _react3.default.createElement(_reactNativeRouterFlux.Scene, { key: 'list', component: _List2.default, title: 'List', __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 14
+                        }
+                    })
+                )
+            );
+        }
+    }]);
+
+    return App;
+}(_react3.default.Component));
+
+exports.default = App;

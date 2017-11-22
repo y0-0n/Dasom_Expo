@@ -1,0 +1,127 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactNative = require('react-native');
+var _Ionicons = require('@expo/vector-icons/Ionicons');var _Ionicons2 = _interopRequireDefault(_Ionicons);
+var _themeManager = require('./themeManager');var _themeManager2 = _interopRequireDefault(_themeManager);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+var defaultTheme = {
+  INPUT_HEIGHT: 46,
+  INPUT_BACKGROUND: '#fff',
+  INPUT_ICON_SIZE: 20,
+  INPUT_VALID_ICON: 'md-checkmark',
+  INPUT_WARN_ICON: 'md-alert',
+  INPUT_ERROR_ICON: 'md-close',
+  INPUT_NORMAL_COLOR: '#bdc1cc',
+  INPUT_VALID_COLOR: '#66bd2b',
+  INPUT_WARN_COLOR: '#ff8c2f',
+  INPUT_ERROR_COLOR: '#e03126' };
+
+_themeManager2.default.setSource('Input', function () {
+  return defaultTheme;
+});
+
+var defaultStyle = function defaultStyle(theme) {
+  return {
+    base: { alignSelf: 'stretch', borderWidth: 1 },
+    normal: {
+      backgroundColor: theme.INPUT_BACKGROUND,
+      borderColor: theme.INPUT_NORMAL_COLOR,
+      borderStyle: 'solid' },
+
+    disabled: { opacity: 0.2 },
+    valid: {
+      borderColor: theme.INPUT_VALID_COLOR,
+      borderStyle: 'solid' },
+
+    error: {
+      borderColor: theme.INPUT_ERROR_COLOR,
+      borderStyle: 'solid' },
+
+    warn: {
+      borderColor: theme.INPUT_WARN_COLOR,
+      borderStyle: 'solid' },
+
+    input: {
+      borderColor: 'transparent',
+      paddingLeft: 12,
+      paddingRight: 6 },
+
+    icon: {
+      top: 12,
+      right: 12,
+      position: 'absolute',
+      backgroundColor: 'transparent' },
+
+    iconStates: {
+      valid: theme.INPUT_VALID_ICON,
+      warn: theme.INPUT_WARN_ICON,
+      error: theme.INPUT_ERROR_ICON },
+
+    colorStates: {
+      normal: theme.INPUT_NORMAL_COLOR,
+      valid: theme.INPUT_VALID_COLOR,
+      warn: theme.INPUT_WARN_COLOR,
+      error: theme.INPUT_ERROR_COLOR } };
+};
+
+var Input = function Input(props) {
+  var width = props.width;
+  var theme = props.theme || _themeManager2.default.getStyle('Input');
+  var height = props.height || theme.INPUT_HEIGHT;
+  var baseStyle = defaultStyle(theme);
+  var statusStyle = baseStyle[props.status];
+  var icon = props.icon || baseStyle.iconStates[props.status];
+  var statusColor = baseStyle.colorStates[props.status];
+
+  var IconComponent = void 0;
+  if (icon) {
+    IconComponent = _react2.default.createElement(_Ionicons2.default, {
+      name: icon,
+      size: theme.INPUT_ICON_SIZE,
+      color: statusColor,
+      style: [baseStyle.icon] });
+  }var rest = _objectWithoutProperties(props, []);
+  delete rest.editable;
+  delete rest.inputStyle;
+  delete rest.style;
+  delete rest.disabled;
+  delete rest.status;
+  delete rest.icon;
+  delete rest.height;
+  delete rest.width;
+
+  return _react2.default.createElement(_reactNative.View, {
+    style: [baseStyle.base, statusStyle, props.style, { width: width, height: height }, props.disabled ? baseStyle.disabled : {}] }, _react2.default.createElement(_reactNative.TextInput, _extends({}, rest, {
+    editable: !props.disabled,
+    style: [baseStyle.base, baseStyle.input, props.inputStyle, { color: statusColor, width: width, height: height }] })), IconComponent);
+};
+
+Input.propTypes = {
+  value: _react.PropTypes.string,
+  disabled: _react.PropTypes.bool,
+  status: _react.PropTypes.oneOf(['normal', 'valid', 'error', 'warn']),
+  width: _react.PropTypes.number,
+  height: _react.PropTypes.number,
+  style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+  inputStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]),
+
+  icon: _react.PropTypes.string,
+  theme: _react.PropTypes.object };
+
+Input.defaultProps = {
+  value: '',
+  disabled: false,
+  status: 'normal' };exports.default = Input;module.exports = exports['default'];

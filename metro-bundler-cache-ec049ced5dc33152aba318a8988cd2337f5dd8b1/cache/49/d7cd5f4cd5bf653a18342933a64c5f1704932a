@@ -1,0 +1,100 @@
+Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};var _react = require("react");var _react2 = _interopRequireDefault(_react);
+var _reactNative = require("react-native");
+var _Progress = require('./Progress');var _Progress2 = _interopRequireDefault(_Progress);function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var theme = {
+  base: {
+    position: 'relative',
+    marginVertical: 25 },
+
+  knob: _extends({
+    position: 'absolute',
+    top: -22 + 2,
+    left: -22,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 } }, _reactNative.Platform.OS === 'web' ? {
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.25)' } : {}, _reactNative.Platform.OS === 'android' ? {
+
+    elevation: 1 } : {}) };var Slider = function (_Component) {
+  _inherits(Slider, _Component);function Slider() {
+    var _ref;var _temp, _this, _ret;_classCallCheck(this, Slider);for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Slider.__proto__ || Object.getPrototypeOf(Slider)).call.apply(_ref, [this].concat(args))), _this), _this._handlePanResponderGrant = function () {
+      _this._onGrantValue = _this.props.value;
+    }, _this._handlePanResponderMove = function (e, gesture) {
+      var _this$props = _this.props,
+          onValueChange = _this$props.onValueChange,
+          minValue = _this$props.minValue,
+          maxValue = _this$props.maxValue,
+          width = _this$props.width;
+      var oldProgress = _this._onGrantValue / (maxValue - minValue);
+      var valueRange = maxValue - minValue;
+      var newProgress = oldProgress + gesture.dx / width;
+      var newValue = minValue + newProgress * valueRange;
+
+      onValueChange(Math.max(minValue, Math.min(maxValue, newValue)));
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }_createClass(Slider, [{ key: 'componentWillMount', value: function componentWillMount() {
+      this._panResponder = _reactNative.PanResponder.create({ onPanResponderTerminationRequest: function onPanResponderTerminationRequest() {
+          return false;
+        }, onStartShouldSetPanResponder: function onStartShouldSetPanResponder() {
+          return true;
+        }, onStartShouldSetPanResponderCapture: function onStartShouldSetPanResponderCapture() {
+          return true;
+        }, onMoveShouldSetPanResponder: function onMoveShouldSetPanResponder() {
+          return false;
+        }, onPanResponderGrant: this._handlePanResponderGrant, onPanResponderMove: this._handlePanResponderMove });
+    } }, { key: 'render', value: function render() {
+      var _props = this.props,
+          value = _props.value,
+          maxValue = _props.maxValue,
+          minValue = _props.minValue,
+          style = _props.style,
+          knobStyle = _props.knobStyle,
+          width = _props.width,
+          height = _props.height;
+
+      var progress = value / (maxValue - minValue);
+      var knobTransform = {
+        transform: [{ translateX: width * progress }] };
+
+      return _react2.default.createElement(_reactNative.View, { style: [theme.base, style, { width: width, height: height }] }, _react2.default.createElement(_Progress2.default, { width: width, height: height, progress: progress }), _react2.default.createElement(_reactNative.View, _extends({}, this._panResponder.panHandlers, {
+        style: [theme.knob, knobTransform, knobStyle] })));
+    } }]);return Slider;
+}(_react.Component);Slider.propTypes = { value: _react.PropTypes.number, maxValue: _react.PropTypes.number, minValue: _react.PropTypes.number, style: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]), knobStyle: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.array]), width: _react.PropTypes.number, height: _react.PropTypes.number, onValueChange: _react.PropTypes.func };Slider.defaultProps = { value: 0, maxValue: 1, minValue: 0, width: 300, height: 6, onValueChange: function onValueChange() {} };exports.default = Slider;module.exports = exports['default'];

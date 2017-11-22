@@ -1,0 +1,269 @@
+'use strict';
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require('./../react-transform-hmr/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = '/home/l5vd5/watchman/reactNative/node_modules/react-native-checkbox/checkbox.js';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactNative = require('react-native');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+    CheckBox: {
+        displayName: 'CheckBox'
+    }
+};
+
+var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: '/home/l5vd5/watchman/reactNative/node_modules/react-native-checkbox/checkbox.js',
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+    return function (Component) {
+        return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+}
+
+var PropTypes = require('prop-types');
+
+var CB_ENABLED_IMAGE = require('./cb_enabled.png');
+var CB_DISABLED_IMAGE = require('./cb_disabled.png');
+
+var CheckBox = _wrapComponent('CheckBox')(function (_Component) {
+    _inherits(CheckBox, _Component);
+
+    function CheckBox(props) {
+        _classCallCheck(this, CheckBox);
+
+        var _this = _possibleConstructorReturn(this, (CheckBox.__proto__ || Object.getPrototypeOf(CheckBox)).call(this, props));
+
+        _this.state = {
+            internalChecked: false,
+            isDisabled: props.disabled
+        };
+        _this.baseState = _this.state;
+        _this.onChange = _this.onChange.bind(_this);
+        return _this;
+    }
+
+    _createClass(CheckBox, [{
+        key: 'onChange',
+        value: function onChange() {
+            if (this.props.onChange && typeof this.props.checked === 'boolean') {
+                this.props.onChange(this.props.checked);
+            } else {
+                var internalChecked = this.state.internalChecked;
+                var newState = !internalChecked;
+
+                if (this.props.onChange) {
+                    this.props.onChange(newState);
+                }
+                this.setState({
+                    internalChecked: newState
+                });
+            }
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.setState(this.baseState);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var container = _react3.default.createElement(
+                _reactNative.View,
+                { style: this.props.containerStyle || styles.container, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 51
+                    }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                    style: this.props.checkboxStyle || styles.checkbox,
+                    source: source, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 52
+                    }
+                }),
+                _react3.default.createElement(
+                    _reactNative.View,
+                    { style: styles.labelContainer, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 55
+                        }
+                    },
+                    _react3.default.createElement(
+                        _reactNative.Text,
+                        { style: [styles.label, this.props.labelStyle], __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 56
+                            }
+                        },
+                        this.props.label
+                    )
+                )
+            );
+
+            var source = void 0;
+
+            if (typeof this.props.checked === 'boolean') {
+                source = this.props.checked ? this.props.checkedImage : this.props.uncheckedImage;
+            } else {
+                source = this.state.internalChecked ? this.props.checkedImage : this.props.uncheckedImage;
+            }
+
+            if (this.props.labelBefore) {
+                container = _react3.default.createElement(
+                    _reactNative.View,
+                    { style: this.props.containerStyle || [styles.container, styles.flexContainer], __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 72
+                        }
+                    },
+                    this.props.label ? _react3.default.createElement(
+                        _reactNative.View,
+                        { style: styles.labelContainer, __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 74
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            { numberOfLines: this.props.labelLines, style: [styles.label, this.props.labelStyle], __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 75
+                                }
+                            },
+                            this.props.label
+                        )
+                    ) : _react3.default.createElement(_reactNative.View, {
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 77
+                        }
+                    }),
+                    _react3.default.createElement(_reactNative.Image, {
+                        style: [styles.checkbox, this.props.checkboxStyle],
+                        source: source, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 78
+                        }
+                    })
+                );
+            } else {
+                container = _react3.default.createElement(
+                    _reactNative.View,
+                    { style: [styles.container, this.props.containerStyle], __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 85
+                        }
+                    },
+                    _react3.default.createElement(_reactNative.Image, {
+                        style: [styles.checkbox, this.props.checkboxStyle],
+                        source: source, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 86
+                        }
+                    }),
+                    this.props.label ? _react3.default.createElement(
+                        _reactNative.View,
+                        { style: styles.labelContainer, __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 90
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            { numberOfLines: this.props.labelLines, style: [styles.label, this.props.labelStyle], __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 91
+                                }
+                            },
+                            this.props.label
+                        )
+                    ) : _react3.default.createElement(_reactNative.View, {
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 93
+                        }
+                    })
+                );
+            }
+
+            return _react3.default.createElement(
+                _reactNative.TouchableHighlight,
+                { onPress: this.onChange, underlayColor: this.props.underlayColor, style: styles.flexContainer, disabled: this.state.isDisabled, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 99
+                    }
+                },
+                container
+            );
+        }
+    }]);
+
+    return CheckBox;
+}(_react2.Component));
+
+var styles = _reactNative.StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5
+    },
+    checkbox: {
+        width: 26,
+        height: 26
+    },
+    labelContainer: {
+        marginLeft: 10,
+        marginRight: 10
+    },
+    label: {
+        fontSize: 15,
+        color: 'grey'
+    }
+});
+
+CheckBox.propTypes = {
+    label: PropTypes.string,
+    labelBefore: PropTypes.bool,
+    labelStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object, PropTypes.number]),
+    labelLines: PropTypes.number,
+    checkboxStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object, PropTypes.number]),
+    containerStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object, PropTypes.number]),
+    checked: PropTypes.bool,
+    checkedImage: PropTypes.number,
+    uncheckedImage: PropTypes.number,
+    underlayColor: PropTypes.string,
+    onChange: PropTypes.func
+};
+
+CheckBox.defaultProps = {
+    label: 'Label',
+    labelLines: 1,
+    labelBefore: false,
+    checked: null,
+    checkedImage: CB_ENABLED_IMAGE,
+    uncheckedImage: CB_DISABLED_IMAGE,
+    underlayColor: 'transparent'
+};
+
+module.exports = CheckBox;

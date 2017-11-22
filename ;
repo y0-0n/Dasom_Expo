@@ -1,0 +1,50 @@
+import React from 'react';
+import { Body, Text, Content, List, ListItem, Form, Picker, Item } from 'native-base';
+import ContainerWithDrawer from './Container';
+export default class Symptom extends React.Component {
+
+    componentDidMount() {
+    }
+
+    state = {
+        language: this.props.language,
+        where: 'head',
+        seleted2: undefined
+    }
+
+    onValueChange(value: string) {
+        this.setState({
+            selected2: value
+        });
+    }
+
+    render() {
+        let language = this.state.language;
+        /*let where = this.state.where
+        let lists = language['head'].map( (s,i) => {
+            return <Item key={i} label={s} value={s} />
+        });*/
+
+        return (
+            <ContainerWithDrawer> 
+
+                <Content>
+                    <Form>
+                        <Picker
+                            supportedOrientations={['portrait', 'landscape']}
+                            mode="dropdown"
+                            iosHeader="Select one"
+                            headerBackButtonText="Go Back"
+                            placeholder="Select one"
+                            selectedValue={this.state.selected2}
+                            onValueChange={this.onValueChange.bind(this)}
+                        >
+                            {language}
+                        </Picker>
+                    </Form>
+                </Content>
+
+            </ContainerWithDrawer>
+         );
+    }
+}
