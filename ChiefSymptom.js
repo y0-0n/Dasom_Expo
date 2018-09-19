@@ -12,26 +12,20 @@ export default class ChiefSymptom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loaded: false
+            loaded: true,
+            selected: null
         };
     }
     componentDidMount() {
     }
 
     componentWillMount() {
-        getLanguage(AsyncStorage).then((key) => {
-            this.setState({
-                language: getData(key),
-                loaded: true,
-                selected: null
-            });
-        });
     }
 
     render() {
-        const goToScreen4 = () => Actions.screen4(global.object);
+        const goToScreen4 = () => Actions.screen4();
         const toast = () => Toast.show({
-            text: this.state.language.chiefSymptom,
+            text: global.language.chiefSymptom,
             position: "bottom",
             buttonText: "quit",
             duration: 3000
@@ -42,28 +36,28 @@ export default class ChiefSymptom extends React.Component {
                 <ListItem 
                     style={{marginLeft: 0, paddingLeft: 18}}
                 >
-                    <Text> {this.state.language.chiefSymptom} </Text>
+                    <Text> {global.language.chiefSymptom} </Text>
                 </ListItem>
                 {array.map((s1, i1)=> {
                     array2 = s1.array;
                     return <View key={i1}>
                         <Item style={{marginLeft: 0, paddingLeft: 18, paddingTop: 5, paddingBottom: 5}}>
-                            <Text> {this.state.language.part[s1.where]} </Text>
+                            <Text> {global.language.part[s1.where]} </Text>
                         </Item>
                         {array2.map((s2, i2) => {
                             return <ListItem key={i2}
                                 style={{marginLeft: 0, paddingLeft: 18}}
                                 onPress={() => {
-                                    this.setState({selected: getData2().symptom[s1.where][s2][0]});
-                                    global.object.chiefSymptom = {where: s1.where, symptom: getData2().symptom[s1.where][s2][0]};
+                                    this.setState({selected: s2});
+                                    global.object.chiefSymptom = {where: s1.where, symptom: s2};
                                 }}
                             >
                                 <CheckBox
-                                    checked = {getData2().symptom[s1.where][s2][0]==this.state.selected}
-                                    label = {this.state.language.symptom[getData2().symptom[s1.where][s2][0]]}
+                                    checked = {s2==this.state.selected}
+                                    label = {global.language.symptom[s2]}
                                     onChange={() => {
-                                        this.setState({selected: getData2().symptom[s1.where][s2][0]});
-                                        global.object.chiefSymptom = {where: s1.where, symptom: getData2().symptom[s1.where][s2][0]};
+                                        this.setState({selected: s2});
+                                        global.object.chiefSymptom = {where: s1.where, symptom: s2};
                                     }}
                                 />
                             </ListItem>

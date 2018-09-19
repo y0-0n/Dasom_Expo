@@ -1,7 +1,7 @@
 {   
     "symptom": { 
         "head": [
-            ["fever", [0, 2, 9]],
+            ["fever", [0, 2, 8]],
             ["hair loss", [6]],
             ["dizziness", [0, 2, 3]],
             ["feeling heavy", [0, 2, 3]],
@@ -27,7 +27,6 @@
             ["irritation caused by poling of eyelashes", [1, 7]],
             ["irritation", [1]],
             ["contact lens related", [1]],
-            ["feeling of irritation", [1]],
             ["eyelid tremor", [1]],
             ["photophobia", [1]]
         ],
@@ -54,8 +53,8 @@
             ["wisdom teeth", [5]]
         ],
         "mouth": [
-            ["cough", [2, 0, 9]],
-            ["sneeze", [2, 0, 9]],
+            ["cough", [2, 0, 8]],
+            ["sneeze", [2, 0, 8]],
             ["bad breath", [5]],
             ["sputum", [2]],
             ["dysphagia", [2]],
@@ -79,7 +78,7 @@
             ["sputum", [2]],
             ["sore throat", [2]],
             ["cervical disk", [4]],
-            ["feeling something stuck inside", [2, 3]],
+            ["feeling something stuck inside", [0, 2]],
             ["mass on anterior neck", [0]],
             ["bloody sputum", [0]],
             ["posterior neck pain", [0, 3]],
@@ -96,7 +95,7 @@
             ["chest pain", [0]],
             ["dyspnea", [0]],
             ["sore throat", [0]],
-            ["cannot breath when lie down", [0]],
+            ["cannot breathe when lie down", [0]],
             ["palpitation", [0]],
             ["hoarseness", [0]]
         ],
@@ -140,36 +139,115 @@
             ["botox", [6]],
             ["eyebrow tattoo", [6]]
         ],
+        "general_symptom": [
+            ["fever", [0, 8]],
+            ["chilling", [0, 8]],
+            ["fatigue", [0, 8]],
+            ["anorexia", [0, 8]],
+            ["poor oral intake", [0, 8]],
+            ["weight loss", [0, 8]],
+            ["weight gain", [0, 8]],
+            ["insomnia, sleep disturbance", [0, 8, 13]],
+            ["sweating too much", [0, 8]],
+            ["depression", [0, 8, 13]],
+            ["want to suicide", [0, 8, 13]],
+            ["bulemia", [0, 8, 13]],
+            ["dizziness", [0, 8]],
+            ["thirst", [0, 8]],
+            ["nausea", [0, 8]],
+            ["cold sweating", [0, 8]],
+            ["muscle pain", [0, 8]],
+            ["edema", [0, 8, 6]],
+            ["anxiety", [0, 8, 13]],
+            ["decreased memory", [0, 8]],
+            ["vaccination", [0, 8]],
+            ["high blood pressure", [0, 8]],
+            ["high blood sugar", [0, 8]],
+            ["high cholesterol", [0, 8]],
+            ["stop smoking", [0, 8]],
+            ["stop drinking", [0, 8, 13]],
+            ["prescribing medicine", [0, 8]]
+        ],
         "arm": [
             ["broken", [4]],
+            ["throbbing (with pain)", [4]],
             ["shoulder pain", [4]],
+            ["shoulder sprain", [4]],
             ["wrist pain", [4]],
             ["wrist sprain", [4]],
-            ["finger pain", [4]],
+            ["finger pain", [4, 10]],
+            ["finger sprain", [4]],
             ["hands(nail) eczema", [6]],
             ["problem with nail", [6, 4]],
-            ["introvertive nail", [4]],
-            ["burn", [6 , 8]]
+            ["ingrown nail", [4]],
+            ["burn", [6 , 7]],
+            ["joint swelling", [4, 10]],
+            ["abnormal joint motion", [4, 10]],
+            ["hand tremor", [0, 3]],
+            ["numbness on extremities", [0, 3]],
+            ["hemiparesis", [0, 3]]
+        ],
+        "urology": [
+            ["oligouria", [8, 11]],
+            ["polyuria", [8, 11]],
+            ["urinary frequency", [8, 11]],
+            ["weak urine stream", [8, 11]],
+            ["red urine", [8, 11]],
+            ["leakage of urine", [8, 11]],
+            ["feeling of residual urine", [8, 11]],
+            ["foamy urine", [8, 11]],
+            ["abnormal urine color", [8, 11]],
+            ["abnormal urine smell", [8, 11]]
         ],
         "leg": [
             ["broken", [4]],
+            ["low back pain", [4]],
             ["thigh pain", [4]],
             ["knee pain", [4]],
-            ["knee sprain", [4]],
             ["ankle pain", [4]],
             ["ankle sprain", [4]],
             ["toe pain", [4]],
-            ["toe sprain", [4]],
             ["eczema", [6]],
             ["problem with toenail", [6, 4]],
-            ["introvertive toenail", [4]],
-            ["burn", [6, 8]]
+            ["ingrown toenail", [4, 6]],
+            ["burn", [6, 9]],
+            ["throbbing (with pain)", [4]],
+            ["joint stifness", [4, 10]],
+            ["joint swelling", [4, 10]],
+            ["joint pain", [4, 10]],
+            ["leg swelling", [4, 10]],
+            ["leg pain", [4]],
+            ["problem with walking", [4]],
+            ["gait disturbance", [4, 3]],
+            ["numbness on extremities", [3]],
+            ["hemiparesis", [3]]
         ],
-        "bottom": [
-            ["bottom pain", [4]],
-            ["pelvis pain", [4]],
-            ["bottom/crotch eczema", [6]],
-            ["bottom boil/acne", [6, 8]]
+        "reproduction_f": [
+            ["no menstruation", [12, 0]],
+            ["menopause", [12, 0]],
+            ["longer period", [12, 0]],
+            ["menorrhagia", [12, 0]],
+            ["menstral pain", [12, 0]],
+            ["itching sense of vagina", [12, 0]],
+            ["pregnant", [12, 0]],
+            ["sexually trasmitted disease", [12, 0]],
+            ["pain during sex", [12, 0]],
+            ["vaginal bleeding", [12, 0]],
+            ["vaginal discharge", [12, 0]],
+            ["antepartum care", [12, 0]],
+            ["sexual abuse", [12, 0]]
+        ],
+        "reproduction_m": [
+            ["weak urine stream", [11]],
+            ["bleeding", [11]],
+            ["STD(Sexullary Transmitted Disease) test", [11, 0]],
+            ["pain during sex", [11]],
+            ["sexual abuse", [11, 0]]
+        ],
+        "anus": [
+            ["bleeding from anus", [9]],
+            ["pain while defecating", [9]],
+            ["palpable mass around anus", [9]]
         ]
     },
     "head": [
@@ -187,5 +265,14 @@
     "armleg": [
         "arm",
         "leg"
+    ],
+    "bottom": [
+        "anus"
+    ],
+    "etc.": [
+        "general_symptom",
+        "urology",
+        "reproduction_m",
+        "reproduction_f"
     ]
 }

@@ -1,10 +1,12 @@
 import React from 'react';
-import { Dimensions, Alert, AsyncStorage, Platform, StyleSheet, View, ScrollView, Image, Linking } from 'react-native';
-import { Button, Text, Content, Body, Icon, Spinner, Card, CardItem } from 'native-base';
+import { Dimensions, Alert, AsyncStorage, Platform, BackHandler, StyleSheet, View, ScrollView, Image, Linking } from 'react-native';
+import { ListItem, Button, Text, Content, Left, Body, Icon, Spinner, Card, CardItem } from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import {getData} from './getData.js';
 import {setLanguage, isFirstLaunch, getLanguage} from './AsyncStorage.js';
 import Swiper from 'react-native-swiper';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+
 export default class Screen1 extends React.Component {
     constructor(props) {
         super(props);
@@ -17,7 +19,7 @@ export default class Screen1 extends React.Component {
             Linking.openURL("https://itunes.apple.com/kr/app/google-maps/id585027354?mt=8"):
             Linking.openURL("https://play.google.com/store/apps/details?id=com.google.android.apps.maps")
         }
-        this.height = Dimensions.get('window').height-80;
+        this.height = Dimensions.get('window').height-60;
     }
 
     componentWillMount() {
@@ -30,8 +32,9 @@ export default class Screen1 extends React.Component {
             if(key == null) {
                Actions.language();
             } else {
+                global.language = getData(key);
+                global.local = key;
                 this.setState({
-                    language: getData(key),
                     loaded: true
                 });
             }
@@ -74,10 +77,11 @@ export default class Screen1 extends React.Component {
                     }
                 });
         }
+
     }
-
+    //const AnimatedCustomScrollView = Animated.createAnimatedComponent(CustomScrollView)
+      
     render() {
-
         const cards = [
             {
                 image: require('./img/resources.jpg')
@@ -89,65 +93,88 @@ export default class Screen1 extends React.Component {
                 image: require('./img/resource3.png')
             }
         ]
-        return this.state.loaded ? (<ScrollView>
-            <View style={{flexDirection: 'column', backgroundColor: 'white', height: this.height}}>
-                <View style={styles.card}>
-                    <Image source={require('./img/cotton.png')} />
+        return this.state.loaded ? (
+            <ParallaxScrollView
+              parallaxHeaderHeight={300}
+              backgroundColor= 'lightgray'
+              contentBackgroundColor= 'lightgray'
+              renderForeground={()=>(
+                <View style={{height:300}}>
+                  <Swiper autoplay={true}>
+                    <Image
+                      source={cards[0].image}
+                      style={{height: 300, width: '100%', resizeMode: 'stretch'}}
+                    />
+                    <Image
+                      source={cards[1].image}
+                      style={{height: 300, width: '100%', resizeMode: 'stretch'}}
+                    />
+                    <Image
+                      source={cards[2].image}
+                      style={{height: 300, width: '100%', resizeMode: 'stretch'}}
+                    />
+                  </Swiper>
                 </View>
-                <View style={styles.card2}>
-                    <Button style={styles.button} onPress={() => Actions.screen2()}>
+              )}>
+                <Card style={styles.button}>
+                  <CardItem style={{height: 100}} button onPress={() => Actions.screen2()}>
+                    <Left>
+                      <Body>
                         <Text style={styles.text}>
-                            {this.state.language.screen1.useNow}
+                          {global.language.screen1.useNow}
                         </Text>
-                    </Button>
-                    {!global.googleMaps? <Button style={styles.button} onPress={() => this.googleMapsDownload()}>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>
+                {/*!global.googleMaps? <Button style={styles.button} onPress={() => this.googleMapsDownload()}>
+                    <Text style={styles.text}>
+                        Google Maps 
+                        <Icon name='cloud-download' style={{color: 'white'}}/>
+                    </Text>
+                </Button> : null*/}
+                <Card style={styles.button}>
+                  <CardItem style={{height: 100}} button onPress={() => Actions.list()}>
+                    <Left>
+                      <Body>
                         <Text style={styles.text}>
-                            Google Maps 
-                            <Icon name='cloud-download' style={{color: 'white'}}/>
+                          {global.language.screen1.list}
                         </Text>
-                    </Button> : null}
-                </View>
-                <View style={styles.card2}>
-                    <Button style={styles.button} onPress={() => Actions.list()}>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>
+                <Card style={styles.button}>
+                  <CardItem style={{height: 80}} button onPress={() => Actions.mapSelect()}>
+                    <Left>
+                      <Body>
                         <Text style={styles.text}>
-                            {this.state.language.screen1.list}
+                          {global.language.screen1.map}
                         </Text>
-                    </Button>
-                    <Button style={styles.button} onPress={() => Actions.mapSelect()}>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>
+                <Card style={styles.button}>
+                  <CardItem style={{height: 80}}>
+                    <Left>
+                      <Body>
                         <Text style={styles.text}>
-                            {this.state.language.screen1.map}
+                          Help
                         </Text>
-                    </Button>
-                </View>
-                <View style={styles.card3}>
-                    <Swiper autoplay={true}>
-                        <Image
-                            source={cards[0].image}
-                            style={{height: 100, width: '100%', resizeMode: 'stretch'}}
-                         />
-                        <Image
-                            source={cards[1].image}
-                            style={{height: 100, width: '100%', resizeMode: 'stretch'}}
-                         />
-                        <Image
-                            source={cards[2].image}
-                            style={{height: 100, width: '100%', resizeMode: 'stretch'}}
-                         />
-                    </Swiper>
-                    {/*<DeckSwiper
-                        dataSource={cards}
-                        renderItem={item => 
-                            <Card>
-                                <Image
-                                    source={item.image}
-                                    style={{height: 150, width: '100%', resizeMode: 'stretch'}}
-                                 />
-                            </Card>
-                        }
-                    />*/}
-                </View>
-            </View>
-            </ScrollView>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>
+                <Card style={styles.button}>
+                  <CardItem>
+                    <Image
+                      source={require('./img/cotton.png')}
+                      style={{height:80, resizeMode:'contain'}}
+                    />
+                  </CardItem>
+                </Card>
+            </ParallaxScrollView>
         ) : (<View style={{height: "100%", alignItems: 'center', justifyContent: 'center'}}>
             <Spinner />
         </View>)
@@ -155,45 +182,25 @@ export default class Screen1 extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    head: {
-        justifyContent: 'center',
-    },
-    body: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    text: {
-        height: 40,
-        paddingTop: 10,
-        fontSize: 19,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    button: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        marginLeft: 5,
-        marginRight: 2.5,
-        marginBottom: 5,
-        backgroundColor: '#3db7f0',
-        height: 100,
-        flex: 1
-    },
-    card: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '47%'
-    },
-    card2: {
-        flexDirection: 'row',
-        height: '18%'
-    },
-    card3: {
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
-        height: '20%',
-        flex: 1
-    }
+  head: {
+    justifyContent: 'center',
+  },
+  body: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 20,
+    fontFamily: 'open-sans-regular',
+    color: 'black',
+  },
+  card: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '40%'
+  },
+  button: {
+    marginLeft: 10,
+    marginRight: 10,
+  }
 });

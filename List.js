@@ -19,7 +19,7 @@ export default class List extends React.Component {
         load(AsyncStorage).then( (key) => {
             if (key==null) {
                 Alert.alert(
-                    this.state.language.noList,
+                    global.language.noList,
                     null,
                     [
                         {text: 'OK', onPress: () => Actions.screen1()},
@@ -30,13 +30,10 @@ export default class List extends React.Component {
             else {
                 global.chiefSymptom = JSON.parse(key).chiefSymptom;
                 global.array = Object.values(JSON.parse(key).symptom);
-                global.howLong = JSON.parse(key).howLong;
-                
-                getLanguage(AsyncStorage).then((key) => {
-                    this.setState({
-                        language: getData(key),
-                        loaded: true
-                    });
+                global.answer1 = JSON.parse(key).answer1;
+                global.answer2 = JSON.parse(key).answer2;
+                this.setState({
+                    loaded: true
                 });
             }
         });
@@ -48,13 +45,13 @@ export default class List extends React.Component {
             <ScrollView>
                 <ListItem style={{paddingLeft: 18, marginLeft: 0}}>
                     <Text style={{fontSize: 18}}>
-                        가장 급한 증상
-                        {'\t('+this.state.language.listChiefSymptom+')'}
+                      {korLanguage.listChiefSymptom}
+                      {'\t('+global.language.listChiefSymptom+')'}
                     </Text>
                 </ListItem>
                 <View style={{ marginTop: 5, marginBottom: 5}}>
                     <Text style={{textAlign: 'right', width: '100%', paddingRight: 18, fontSize: 22}}>
-                        {'\t'+korLanguage.part[global.chiefSymptom.where]}에서 {korLanguage.symptom[global.chiefSymptom.symptom]}
+                        {'\t'+korLanguage.part[global.chiefSymptom.where]} -> {korLanguage.symptom[global.chiefSymptom.symptom]}
                     </Text>
                 </View>
                 {global.array.map((s1, i1) => {
@@ -63,8 +60,8 @@ export default class List extends React.Component {
                         <View style={{padding: 22, backgroundColor: 'white'}}>
                             <Text style={{fontSize: 22}}>
                                 {korLanguage.part[s1.where]}
-                                {'('+this.state.language.part[s1.where]+') '}
-                                아파요
+                                {'('+global.language.part[s1.where]+') '}
+                                에 문제가 있어요
                             </Text>
                         </View>
                         <View style={{flexDirection: 'row'}}>
@@ -78,14 +75,14 @@ export default class List extends React.Component {
                                     style={{marginLeft: 0, paddingLeft: 18, paddingTop: 5, paddingBottom: 5}}
                                 >
                                     <Text style={{fontSize: 22}}>
-                                        {korLanguage.symptom[getData2().symptom[s1.where][s2][0]]}
+                                        {korLanguage.symptom[s2]}
                                     </Text>
                                 </Item>
                                 <Item
                                     style={{marginLeft: 0, paddingLeft: 18, paddingTop: 4, paddingBottom: 4}}
                                 >
                                     <Text style={{textAlign: 'right', width: '100%', paddingRight: 18}}>
-                                        {this.state.language.symptom[getData2().symptom[s1.where][s2][0]]}
+                                        {global.language.symptom[s2]}
                                     </Text>
                                 </Item>
                             </View>
@@ -96,9 +93,78 @@ export default class List extends React.Component {
                 })}
                 <ListItem style={{paddingLeft: 18, marginLeft: 0}}>
                     <Text style={{fontSize: 22}} >
-                        {korLanguage.howLong[global.howLong]}정도 아팠어요
+                      환자의 답변
                     </Text>
                 </ListItem>
+                <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
+                    <Text style={{fontSize: 22, color: 'white'}} >
+                        {korLanguage.question1}
+                    </Text>
+                </Item>
+                <Item style={{paddingLeft: 18, marginLeft: 0}}>
+                    <Text style={{fontSize: 22}} >
+                        {korLanguage.answer1[global.answer1[0]]}이후로 아팠어요
+                    </Text>
+                </Item>
+                {global.answer1[1]!='key0'? <View>
+                  <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
+                    <Text style={{fontSize: 22, color: 'white'}} >
+                        {korLanguage.question2}
+                    </Text>
+                  </Item>
+                  <Item style={{paddingLeft: 18, marginLeft: 0}}>
+                    <Text style={{fontSize: 22}} >
+                        {korLanguage.answer2[global.answer1[1]]}
+                    </Text>
+                  </Item>
+                </View> : null}
+                {global.answer1[2]!='key0'? <View>
+                  <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
+                    <Text style={{fontSize: 22, color: 'white'}} >
+                        {korLanguage.question3}
+                    </Text>
+                  </Item>
+                  <Item style={{paddingLeft: 18, marginLeft: 0}}>
+                    <Text style={{fontSize: 22}} >
+                        {korLanguage.answer3[global.answer1[2]]}
+                    </Text>
+                  </Item>
+                </View> : null}
+                {global.answer1[3]!='key0'? <View>
+                  <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
+                    <Text style={{fontSize: 22, color: 'white'}} >
+                        {korLanguage.question4}
+                    </Text>
+                  </Item>
+                  <Item style={{paddingLeft: 18, marginLeft: 0}}>
+                    <Text style={{fontSize: 22}} >
+                        {korLanguage.answer4[global.answer1[3]]}
+                    </Text>
+                  </Item>
+                </View> : null}
+                <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
+                    <Text style={{fontSize: 22, color: 'white'}} >
+                        {korLanguage.question5}
+                    </Text>
+                </Item>
+                <Item style={{paddingLeft: 18, marginLeft: 0}}>
+                    <Text style={{fontSize: 22}} >
+                        {korLanguage.answer5[global.answer1[4]]}
+                    </Text>
+                </Item>
+                {global.answer2.length!=0 ? <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
+                    <Text style={{fontSize: 22, color: 'white'}} >
+                        {korLanguage.question6}
+                    </Text>
+                </Item> : null
+                }
+                {global.answer2.map((s, i) => {
+                  return <Item key={i} style={{paddingLeft: 18, marginLeft: 0}}>
+                    <Text style={{fontSize: 22}}>
+                      {korLanguage.answer6[s]}
+                    </Text>
+                  </Item>
+                })}
             </ScrollView>
             <BottomToolbar>
                 <BottomToolbar.Action

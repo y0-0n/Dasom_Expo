@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^6.2.2",
-    "expo": "^24.0.2",
+    "exp": "^57.1.4",
+    "expo": "^24.1.0",
     "native-base": "^2.3.6",
+    "npm": "^4.6.1",
     "react": "^16.0.0",
     "react-native": "^0.51.0",
     "react-native-bottom-toolbar": "^4.1.1",
@@ -32,8 +34,10 @@
     "react-native-geolocation-service": "^1.0.3",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-maps": "^0.17.1",
+    "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-radio-form": "^1.1.0",
     "react-native-router-flux": "^4.0.0-beta.24",
+    "react-native-send-intent": "^1.0.26",
     "react-native-swiper": "^1.5.13",
     "react-native-togglebox": "^1.0.3",
     "react-native-vector-icons": "^4.5.0"

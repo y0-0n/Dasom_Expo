@@ -36,6 +36,30 @@ export default class Language extends React.Component {
                 >
                     <Text> English </Text>
                 </ListItem>
+                {/*<ListItem style={{marginLeft: 0, paddingLeft: 18}}
+                    onPress = {
+                        () => {
+                            setLanguage(AsyncStorage, 'th').then(()=>{ 
+                                Actions.screen1();
+                                this.props.containerRefresh();
+                            })
+                        }
+                    }
+                >
+                    <Text> Thailand </Text>
+                </ListItem>*/}
+                <ListItem style={{marginLeft: 0, paddingLeft: 18}}
+                    onPress = {
+                        () => {
+                            setLanguage(AsyncStorage, 'ru').then(()=>{ 
+                                Actions.screen1();
+                                this.props.containerRefresh();
+                            })
+                        }
+                    }
+                >
+                    <Text> Russian </Text>
+                </ListItem>
             </Content>
     }
 }

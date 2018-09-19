@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AsyncStorage, ScrollView} from 'react-native';
+import { Alert, AsyncStorage, ScrollView, TextInput} from 'react-native';
 import { Toast, View, Body, Text, Content, Icon, Spinner, Footer, Button, List, ListItem, Form, Picker, Item, Radio } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import {getData} from './getData.js';
@@ -13,61 +13,59 @@ export default class Symptom extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            loaded: false,
-            selected2: []
-        }
+        let where = this.props.where;
+        let symptom = getData2().symptom;
 
-        getLanguage(AsyncStorage).then((key) => {
-            global.language = key;
-            
-            this.setState({
-                language: getData(key),
-            });
-
-            let where = this.props.where;
-            let symptom = getData2().symptom;
-
-            global.lists = symptom[where].map( (s,i) => {
-                return this.state.language.symptom[s[0]];
-            });
-            //global.lists.sort();
-
-            index = new Array(global.lists.length);
-            index.fill(false);
-            
-            this.setState({
-                selected2: global.index,
-                loaded: true
-            });
+        //통증 리스트
+        global.lists = symptom[where].map( (symptom,i) => {
+            return global.language.symptom[symptom[0]];
         });
+        global.lists.sort();
+
+        //체크된 통증 리스트 초기화
+        //index = new Array(global.lists.length);
+        index = new Array();
+        
+        let visible = new Array(global.lists.length);
+        visible.fill(true);
+
+        this.state = {
+            loaded: true,
+            selected2: index,
+            filter: visible,
+            search: global.lists
+        }
     }
 
     question() {
-        const goToNext = () => Actions.screen2({
+        const goToMoreSymptom = () => Actions.screen2({
             where: this.props.where,
             symptom: this.props.symptom
         });
 
-        global.checked = new Array();
-        this.state.selected2.map((s,i) => {
-            if(s) {
-                global.checked.push(i);
+        global.checked = new Array();//check한 영어 통증
+
+        for (j in this.state.selected2){//check한 번역된 통증을 O(n^2) 탐색으로 영어 통증으로 바꿈 TODO
+            for(i in global.language.symptom){
+                if(this.state.selected2[j]==global.language.symptom[i]){
+                    global.checked.push(i)
+                    break;
+                }
             }
-        })
+        }
         global.object.symptom[this.props.where] = {
             where: this.props.where,
             array: global.checked
         };
         Alert.alert(
-            this.state.language.moreSymptom,
+            global.language.moreSymptom,
             null,
             [
-                {text: 'OK', onPress: () => goToNext()},
-                {text: 'NO', onPress: () => Actions.screen3(global.object)},
+                {text: 'Yes', onPress: () => goToMoreSymptom()},
+                {text: 'NO', onPress: () => Actions.screen3()},
             ],
             { cancelable: false }
-        )
+        ) 
     }
 
     render() {
@@ -76,36 +74,69 @@ export default class Symptom extends React.Component {
         });*/
         var B;
         const toast = () => Toast.show({
-            text: this.state.language.symptomHelp,
+            text: global.language.symptomHelp,
             position: "bottom",
             buttonText: "quit",
             duration: 3000
         });
         if(this.state.loaded) {
-            B = global.lists.map( (s,i) => {
-                return <ListItem key={s[0]}
-                    key={i}
-                    onPress={() => {
-                        let newSelected2 = Object.values(this.state.selected2);
-                        newSelected2[i] = !newSelected2[i];
-                        this.setState({selected2: newSelected2});
-                    }}
-                    style={{marginLeft: 0, paddingLeft: 18}}
-                    >
-                    <CheckBox
-                        checked = {this.state.selected2[i]}
-                        label = {s}
-                        onChange={() => {
-                            let newSelected2 = Object.values(this.state.selected2);
-                            newSelected2[i] = !newSelected2[i];
+            B = this.state.search.map( (s,i) => {
+                if(this.state.filter[i] == true) {
+                    return <ListItem key={s[0]}
+                        key={i}//TODO two key??
+                        onPress={() => {
+                            let newSelected2 = this.state.selected2;
+
+                            if((idx = newSelected2.indexOf(s))!=-1)
+                                newSelected2.splice(idx, 1);
+                            else
+                                newSelected2.push(s);
+                            
                             this.setState({selected2: newSelected2});
                         }}
-                    />
-                </ListItem>
+                        style={{marginLeft: 0, paddingLeft: 18}}
+                        >
+                        <CheckBox
+                            checked = {this.state.selected2.indexOf(s) != -1}
+                            label = {s}
+                            onChange={() => {
+                                let newSelected2 = this.state.selected2;
+
+                                if((idx = newSelected2.indexOf(s))!=-1)
+                                    newSelected2.splice(idx, 1);
+                                else
+                                    newSelected2.push(s);
+                                
+                                this.setState({selected2: newSelected2});
+                            }}
+                        />
+                    </ListItem>
+                }
             });
         }
 
         return this.state.loaded? (<View style={{flex: 1}}>
+            <TextInput
+                placeholder="Search"
+                style={{height: 50, fontSize: 25}}
+                textAlign={"center"}
+                autoCapitalize="characters"
+                onChangeText={(text) => {
+                    var array = [];
+                    global.lists.map( (s, i) => {
+                        if(s.indexOf(text)!=-1 || s.toLowerCase().indexOf(text)!=-1) {
+                            //this.state.filter[i] = true;
+                            array.push(s);
+                        }
+                        else {
+                            //this.state.filter[i] = false;
+                        }
+                    });
+                    this.setState({
+                        search: array
+                    });
+                }}
+            />
             <ScrollView style={{flex: 1}}>
                 {B}
             </ScrollView>
@@ -123,7 +154,7 @@ export default class Symptom extends React.Component {
                     iconName = 'help'
                 />
                 <BottomToolbar.Action
-                    disabled={this.state.selected2.indexOf(true)==-1}
+                    disabled={this.state.selected2.length==0}
                     title=''
                     onPress={() => this.question()}
                     IconComponent= {Icon}

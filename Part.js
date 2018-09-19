@@ -12,23 +12,15 @@ export default class Part extends React.Component {
         super(props);
 
         this.state = {
-            loaded: false
+            loaded: true
         }
 
-        getLanguage(AsyncStorage).then((key) => {
-            global.language = key
-            
-            this.setState({
-                language: getData(key),
-                loaded: true
-            });
-        });
     }
 
     render() {
         var arrayKey;
         const toast = () => Toast.show({
-            text: this.state.language.screen2help,
+            text: global.language.screen2help,
             position: "bottom",
             buttonText: "quit",
             duration: 3000
@@ -50,7 +42,7 @@ export default class Part extends React.Component {
                                 symptom: this.props.symptom
                             })}
                         >
-                            <Text> {this.state.language.part[s]} </Text>
+                            <Text> {global.language.part[s]} </Text>
                         </ListItem>
                     })}
                     </ScrollView>

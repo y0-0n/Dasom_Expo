@@ -1,5 +1,4 @@
-{
-    "department": [
+{    "department": [
         "Internal Medicine",
         "Ophthalmology",
         "Otorhinolaryngology",
@@ -21,9 +20,9 @@
     "sideBar": {
         "home": "Home",
         "language": "Language",
-        "insurance": "Insurance",
+        "insurance": "Medical Treatment System in Korea",
         "list": "Symptom Record",
-        "map": "Near Hospital",
+        "map": "Nearby Hospital",
         "people": "Created By"
     },
     "navBar": {
@@ -32,9 +31,9 @@
          }
     },
     "screen1": {
-        "useNow": "Use Now",
-        "list": "Symptom Record",
-        "map": "Near Hospital"
+        "useNow": "Start Self-diagnosis",
+        "list": "Self-diagnosis Record",
+        "map": "Nearby Hospital"
     },
     "screen2": [
         "Whole Body",
@@ -45,20 +44,22 @@
         "Bottom",
         "Arm/Leg"
     ],
-    "screen2help": "Click sick part",
-    "screen3help": "If more symptom to check, go previous. Else go next",
-    "screen4hlep": "Answer the question.",
-    "screen5help": "Click a department which you want to know about",
-    "noList": "There is no symptom",
-    "symptomHelp": "Select your symptom, and then go to next screen",
-    "chiefSymptom": "Select chief symptom",
+    "firstLaunchHelp": "Fill in general information",
+		"screen2help": "Click the part you want to be checked",
+    "screen3help": "If there are additional symptom to check, click the ‘go back’ button. If not, click ‘next’.",
+    "screen4hlep": "Answer the question below and click ‘next’.",
+    "screen5help": "Department is listed in recommended order. Click the department to see the list of nearby hospitals.",
+    "noList": "There are no self-diagnosis record saved. First click the ‘Start Self-diagnosis Record’.",
+    "symptomHelp": "Select your symptom(s), and then click ‘next’.",
     "question1": "When did you first notice this symptom?",
     "question2": "When do you experience this symptom?",
-    "question3": "How severe is it?",
-    "question4": "Have you noticed changes?",
+    "question3": "Locate your pain level on a scale",
+    "question4": "Is the symptom getting better or worse?",
     "question5": "What do you think the cause is?",
-    "question6": "?",
-    "listChiefSymptom": "Chief Symptom",
+    "question6": "Do you experience any of the symptoms below?",
+    "chiefSymptom": "Select your chief symptom",
+    "chiefSymptomhelp": "Select your chief symptom, and then click ‘next’.",
+    "listChiefSymptom": "Chief symptom",
     "moreSymptom": "Are there additional symptom(s)?",
     "part": {
         "head": "Head",
@@ -79,7 +80,7 @@
         "reproduction_m": "Reproductive System for Male",
         "anus": "Anus"
     },
-    "answer1": {
+     "answer1": {
         "key0": "Today / Yesterday",
         "key1": "2~7 days ago",
         "key2": "1~2 weeks ago",
@@ -95,12 +96,11 @@
         "key5": "When I move it.",
         "key6": "After meals.",
         "key7": "When I'm hungry.",
-        "key8": "Suddenly",
-        "key9": "Gradually"
+        "key8": "Suddenly"
     },
     "answer3": {
         "key0": "",
-        "key1": "Mild",
+        "key1": "mild",
         "key2": "Moderate",
         "key3": "Severe",
         "key4": "Very severe",
@@ -150,7 +150,7 @@
         "too much tear": "Too much tear",
         "dry eye": "Dry eye",
         "irritation caused by poling of eyelashes": "Irritation caused by poling of eyelashes",
-        "irritation": "irritation, tickle",
+        "irritation": "Irritation, tickle",
         "contact lens related": "Contact lens related",
         "photophobia": "Photophobia",
         "eyelid tremor": "Eyelid tremor",
@@ -180,7 +180,7 @@
         "bad breath": "Bad breath",
         "sputum": "Sputum",
         "dysphagia": "Dysphagia",
-        "have canker sores in mouth": "have canker sores in mouth",
+        "have canker sores in mouth": "I have canker sores in mouth",
         "ulcer in oral cavity": "Ulcer in oral cavity",
         "bleeding gums": "Bleeding gums",
         "_________Ear__________":"_______________________________________________",
@@ -198,7 +198,7 @@
         "sputum": "Sputum",
         "sore throat": "Sore throat",
         "cervical disk": "Cervical disk",
-        "feeling something stuck inside": "feeling something stuck inside",
+        "feeling something stuck inside": "I feel something stuck inside",
         "mass on anterior neck": "Mass on anterior neck",
         "bloody sputum": "bloody sputum",
         "posterior neck pain": "Posterior neck pain",
@@ -213,14 +213,14 @@
         "sputum": "Sputum",
         "chest pain": "Chest pain",
         "dyspnea": "Dyspnea",
-        "cannot breathe when lie down": "Cannot breathe whe lie down",
+        "cannot breathe when lie down": "I cannot breathe whe lie down",
         "palpitation": "Palpitation",
         "________Stomach___________":"_______________________________________________",
         "epigastric discomfort": "Epigastric discomfort",
         "acute upper abdominal pain": "Acute upper abdominal pain",
         "acute lower abdominal pain": "Acute lower abdominal pain",
         "vomiting": "Vomiting",
-        "diarrhea": "diarrhea",
+        "diarrhea": "Diarrhea",
         "constipation": "Constipation",
         "bloody vomitus": "Bloody vomitus",
         "bloody stool": "Bloody stool",
@@ -264,7 +264,7 @@
         "insomnia, sleep disturbance": "Insomnia, sleep disturbance",
         "sweating too much": "Sweating too much",
         "depression": "Depression",
-        "want to suicide": "want to suicide",
+        "want to suicide": "I want to suicide",
         "bulemia": "Bulemia",
         "dizziness": "Dizziness",
         "thirst": "Thirst",
@@ -274,7 +274,7 @@
         "edema": "Edema",
         "anxiety": "Anxiety",
         "decreased memory": "Decresead memory",
-        "vaccination": "vaccination",
+        "vaccination": "Vaccination",
         "high blood pressure": "High blood pressure",
         "high blood sugar": "High blood sugar",
         "high cholesterol": "High cholesterol",
@@ -359,7 +359,7 @@
         "pain while defecating": "Pain while defecating",
         "palpable mass around anus": "Palpable mass around anus"
     },
-    "symptomHelp": "Click your symptom, and click next",
+    "symptomHelp": "Click your symptom, and go to next screen.",
     "insurance": [
         "국민건강보험",
         "한국 병원에서 의료보험을 쓰기 위해서는 국민건강보험에 가입해야한다. 외국인들은 유학생 본인과 배우자, 그리고 20세 미만 자녀들까지 보험 혜택을 받을 수 있다.",

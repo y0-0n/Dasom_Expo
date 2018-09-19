@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "Dasom",
-    "icon": "./img/bottle.png",
+    "name": "AYA",
+    "icon": "./img/cotton.png",
     "version": "0.0.1",
-    "slug": "Dasom",
+    "slug": "AYA",
     "orientation": "portrait",
     "sdkVersion": "24.0.0",
     "ios": {
-        "bundleIdentifier": "com.dasom.dasom"
+        "bundleIdentifier": "com.aya.aya"
     },
     "android": {
-        "package": "com.dasom.dasom"
+        "package": "com.aya.aya"
     }
   }
 }
