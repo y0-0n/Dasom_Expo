@@ -1,8 +1,8 @@
 import React from 'react';
-import { Alert, AsyncStorage, StyleSheet, View, Image, Text, ScrollView } from 'react-native';
+import { Alert, AsyncStorage, StyleSheet, View, Image, Text, ScrollView, Switch } from 'react-native';
 import { Icon, Spinner, ListItem, Item, Button } from 'native-base';
 import {Actions} from 'react-native-router-flux';
-import {getData} from './getData.js';
+import {getData, getImage} from './getData.js';
 import {getData2} from './getData2.js';
 import {load, getLanguage} from './AsyncStorage.js';
 import BottomToolbar from 'react-native-bottom-toolbar';
@@ -13,7 +13,8 @@ export default class List extends React.Component {
 
         this.state = {
             loaded: false,
-            empty: false
+            empty: false,
+            translated: false
         };
 
         load(AsyncStorage).then( (key) => {
@@ -38,133 +39,145 @@ export default class List extends React.Component {
             }
         });
     }
-    
+    toggleSwitch(value) {
+      this.setState({translated: value});
+    }
     render() {
         let korLanguage = getData('ko');
+        let engLanguage = getData('en');
         return this.state.loaded? (<View style={{flex: 1}}>
             <ScrollView>
-                <ListItem style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 18}}>
-                      {korLanguage.listChiefSymptom}
-                      {'\t('+global.language.listChiefSymptom+')'}
-                    </Text>
-                </ListItem>
-                <View style={{ marginTop: 5, marginBottom: 5}}>
-                    <Text style={{textAlign: 'right', width: '100%', paddingRight: 18, fontSize: 22}}>
-                        {'\t'+korLanguage.part[global.chiefSymptom.where]} -> {korLanguage.symptom[global.chiefSymptom.symptom]}
+              <Switch
+                value={this.state.translated}
+                onValueChange={(value)=>{this.toggleSwitch(value);}}
+              />
+              <View style={styles.list} >
+                <View style={[styles.center, styles.marginTB]}>
+                  <Text style={{fontSize: 18}}>
+                    {this.state.translated ? korLanguage.listChiefSymptom : global.language.listChiefSymptom}
+                  </Text>
+                </View>
+                <View style={[styles.center, {flexDirection: 'row'}]}>
+                    <Image
+                      source={getImage(engLanguage.part[global.chiefSymptom.where])}
+                    />
+                    <Text style={{paddingRight: 18, fontSize: 22}}>
+                      {this.state.translated ? korLanguage.part[global.chiefSymptom.where]: global.language.part[global.chiefSymptom.where]}{"\n"}
+                      -> {this.state.translated ? korLanguage.symptom[global.chiefSymptom.symptom]: global.language.symptom[global.chiefSymptom.symptom]}
                     </Text>
                 </View>
+              </View>
+              <View style={styles.list} >
                 {global.array.map((s1, i1) => {
                     let array3 = s1.array;
-                    return <View key={i1}>
-                        <View style={{padding: 22, backgroundColor: 'white'}}>
-                            <Text style={{fontSize: 22}}>
-                                {korLanguage.part[s1.where]}
-                                {'('+global.language.part[s1.where]+') '}
-                                에 문제가 있어요
-                            </Text>
+                    return <View key={i1} style={{borderBottomWidth: 0.3}}>
+                        <View style={styles.title}>
+                          <Image
+                            source={getImage(engLanguage.part[s1.where])}
+                            style={styles.image}
+                          />
+                          <Text style={{fontSize: 22}}>
+                              {this.state.translated ? korLanguage.part[s1.where]: global.language.part[s1.where]}
+                              에 문제가 있어요
+                          </Text>
                         </View>
                         <View style={{flexDirection: 'row'}}>
-                            <View style={{borderRightWidth: 0.2, flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                                <Text> 상세 </Text>
+                            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                                <Text> {/*상세*/} </Text>
                             </View>
                             <View style={{flex: 7}}>
                         {array3.map((s2,i2) => {
                             return <View key={i2}>
-                                <Item
+                                <View
                                     style={{marginLeft: 0, paddingLeft: 18, paddingTop: 5, paddingBottom: 5}}
                                 >
                                     <Text style={{fontSize: 22}}>
-                                        {korLanguage.symptom[s2]}
+                                        - {this.state.translated? korLanguage.symptom[s2]: global.language.symptom[s2]}
                                     </Text>
-                                </Item>
-                                <Item
-                                    style={{marginLeft: 0, paddingLeft: 18, paddingTop: 4, paddingBottom: 4}}
-                                >
-                                    <Text style={{textAlign: 'right', width: '100%', paddingRight: 18}}>
-                                        {global.language.symptom[s2]}
-                                    </Text>
-                                </Item>
+                                </View>
                             </View>
                         })}
                             </View>
                         </View>
                     </View>
                 })}
-                <ListItem style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 22}} >
-                      환자의 답변
-                    </Text>
-                </ListItem>
-                <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
-                    <Text style={{fontSize: 22, color: 'white'}} >
-                        {korLanguage.question1}
-                    </Text>
-                </Item>
-                <Item style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 22}} >
-                        {korLanguage.answer1[global.answer1[0]]}이후로 아팠어요
-                    </Text>
-                </Item>
+              </View>
+              <View style={styles.list} >
+                <View style={[styles.center, styles.marginTB]}>
+                  <Text style={{fontSize: 22}}>
+                    Q&A
+                  </Text>
+                </View>
+                <View style={[styles.question, styles.center]}>
+                  <Text style={styles.qtxt}>
+                      {this.state.translated ? korLanguage.question1: global.language.question1}
+                  </Text>
+                </View>
+                <View style={[styles.answer, styles.center]}>
+                  <Text style={styles.atxt}>
+                      {this.state.translated ? korLanguage.answer1[global.answer1[0]]: global.language.answer1[global.answer1[0]]}
+                  </Text>
+                </View>
                 {global.answer1[1]!='key0'? <View>
-                  <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
-                    <Text style={{fontSize: 22, color: 'white'}} >
-                        {korLanguage.question2}
+                  <View style={[styles.question, styles.center]}>
+                    <Text style={styles.qtxt}>
+                        {this.state.translated ? korLanguage.question2: global.language.question2}
                     </Text>
-                  </Item>
-                  <Item style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 22}} >
-                        {korLanguage.answer2[global.answer1[1]]}
+                  </View>
+                  <View style={[styles.answer, styles.center]}>
+                    <Text style={styles.atxt}>
+                        {this.state.translated ? korLanguage.answer2[global.answer1[1]]: global.language.answer2[global.answer1[1]]}
                     </Text>
-                  </Item>
+                  </View>
                 </View> : null}
                 {global.answer1[2]!='key0'? <View>
-                  <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
-                    <Text style={{fontSize: 22, color: 'white'}} >
-                        {korLanguage.question3}
+                  <View style={[styles.question, styles.center]}>
+                    <Text style={styles.qtxt}>
+                        {this.state.translated ? korLanguage.question3: global.language.question3}
                     </Text>
-                  </Item>
-                  <Item style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 22}} >
-                        {korLanguage.answer3[global.answer1[2]]}
+                  </View>
+                  <View style={[styles.answer, styles.center]}>
+                    <Text style={styles.atxt}>
+                        {this.state.translated ? korLanguage.answer3[global.answer1[2]]: global.language.answer3[global.answer1[2]]}
                     </Text>
-                  </Item>
+                  </View>
                 </View> : null}
                 {global.answer1[3]!='key0'? <View>
-                  <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
-                    <Text style={{fontSize: 22, color: 'white'}} >
-                        {korLanguage.question4}
+                  <View style={[styles.question, styles.center]}>
+                    <Text style={styles.qtxt}>
+                        {this.state.translated ? korLanguage.question4: global.language.question4}
                     </Text>
-                  </Item>
-                  <Item style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 22}} >
-                        {korLanguage.answer4[global.answer1[3]]}
+                  </View>
+                  <View style={[styles.answer, styles.center]}>
+                    <Text style={styles.atxt}>
+                        {this.state.translated ? korLanguage.answer4[global.answer1[3]]: global.language.answer4[global.answer1[3]]}
                     </Text>
-                  </Item>
+                  </View>
                 </View> : null}
-                <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
-                    <Text style={{fontSize: 22, color: 'white'}} >
-                        {korLanguage.question5}
+                <View style={[styles.question, styles.center]}>
+                  <Text style={styles.qtxt}>
+                      {this.state.translated ? korLanguage.question5: global.language.question5}
+                  </Text>
+                </View>
+                <View style={[styles.answer, styles.center]}>
+                  <Text style={styles.atxt}>
+                      {this.state.translated ? korLanguage.answer5[global.answer1[4]]: global.language.answer5[global.answer1[4]]}
+                  </Text>
+                </View>
+                {global.answer2.length!=0 ? <View style={[styles.question, styles.center]}>
+                    <Text style={styles.qtxt}>
+                        {this.state.translated ? korLanguage.question6: global.language.question6}
                     </Text>
-                </Item>
-                <Item style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 22}} >
-                        {korLanguage.answer5[global.answer1[4]]}
-                    </Text>
-                </Item>
-                {global.answer2.length!=0 ? <Item style={{paddingLeft: 18, marginLeft: 0, backgroundColor: 'green'}}>
-                    <Text style={{fontSize: 22, color: 'white'}} >
-                        {korLanguage.question6}
-                    </Text>
-                </Item> : null
+                </View> : null
                 }
                 {global.answer2.map((s, i) => {
-                  return <Item key={i} style={{paddingLeft: 18, marginLeft: 0}}>
-                    <Text style={{fontSize: 22}}>
-                      {korLanguage.answer6[s]}
+                  return <View key={i} style={[styles.answer, styles.center]}>
+                    <Text style={styles.atxt}>
+                        {this.state.translated ? korLanguage.answer6[global.answer1[5]]: global.language.answer6[global.answer1[5]]}
                     </Text>
-                  </Item>
+                  </View>
                 })}
+              </View>
             </ScrollView>
             <BottomToolbar>
                 <BottomToolbar.Action
@@ -179,3 +192,52 @@ export default class List extends React.Component {
         </View>)
     }
 }
+
+const styles = StyleSheet.create({
+  list: {
+    backgroundColor: 'white',
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    marginTop: 10,
+    borderRadius: 20
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  marginTB: {
+    marginTop: 5,
+    marginBottom: 5
+  },
+  title: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 22,
+    flexDirection: 'row',
+  },
+  image: {
+    height: 50,
+  },
+  question: {
+    backgroundColor: 'skyblue',
+    paddingLeft: 18,
+    marginLeft: 0,
+    height: 50,
+  },
+  answer: {
+    paddingLeft: 18,
+    marginLeft: 0,
+    height: 50,
+  },
+  qtxt: {
+    fontSize: 18,
+    color: 'white'
+  },
+  atxt: {
+    fontSize: 18,
+    width: '100%',
+    //textAlign: 'right',
+    paddingRight: 10
+  }
+});

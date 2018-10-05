@@ -34,7 +34,7 @@ export default class SideBar extends React.Component {
     render() {
         return this.state.loaded? (<ScrollView>
             <View style={{paddingTop: this.props.topMargin}}>
-                <Image source={require('./img/sidebar.gif')} style={{height: 200, width: "100%"}} />
+                <Image source={require('./asset/img/2x/logo1.png')} style={{height: 200, width: "100%", backgroundColor: 'white'}} />
                 <ListItem style={styles.listitem} onPress={() => {this.props.closeDrawer();Actions.screen1()}}>
                     <Text>{this.state.language.sideBar.home}</Text>
                 </ListItem>

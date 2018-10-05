@@ -84,13 +84,13 @@ export default class Screen1 extends React.Component {
     render() {
         const cards = [
             {
-                image: require('./img/resources.jpg')
+                image: require('./asset/img/2x/logo2.png')
             },
             {
-                image: require('./img/resources2.jpeg')
+                image: require('./asset/img/2x/logo1.png')
             },
             {
-                image: require('./img/resource3.png')
+                image: require('./asset/img/2x/doctor.png')
             }
         ]
         return this.state.loaded ? (
@@ -103,15 +103,15 @@ export default class Screen1 extends React.Component {
                   <Swiper autoplay={true}>
                     <Image
                       source={cards[0].image}
-                      style={{height: 300, width: '100%', resizeMode: 'stretch'}}
+                      style={{height: 300, width: '100%', resizeMode: 'stretch', backgroundColor: 'white'}}
                     />
                     <Image
                       source={cards[1].image}
-                      style={{height: 300, width: '100%', resizeMode: 'stretch'}}
+                      style={{height: 300, width: '100%', resizeMode: 'stretch', backgroundColor:'white'}}
                     />
                     <Image
                       source={cards[2].image}
-                      style={{height: 300, width: '100%', resizeMode: 'stretch'}}
+                      style={{height: 300, width: '100%', resizeMode: 'stretch', backgroundColor: 'white'}}
                     />
                   </Swiper>
                 </View>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Toast, Content, Text, ListItem, Icon, Spinner, View, Button } from 'native-base';
-import { AsyncStorage, ScrollView } from 'react-native';
+import { AsyncStorage, ScrollView, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {getData} from './getData.js';
+import {getData, getImage} from './getData.js';
 import {getData2} from './getData2.js';
 import {getLanguage} from './AsyncStorage';
 import BottomToolbar from 'react-native-bottom-toolbar';
@@ -19,6 +19,7 @@ export default class Part extends React.Component {
 
     render() {
         var arrayKey;
+        var engLanguage = getData('en'); 
         const toast = () => Toast.show({
             text: global.language.screen2help,
             position: "bottom",
@@ -33,18 +34,37 @@ export default class Part extends React.Component {
         return this.state.loaded? (
                 <View style={{flex: 1}}>
                     <ScrollView>
-                    {arrayKey.map( (s,i) => {
-                        return <ListItem
-                            key={i}
-                            style={{marginLeft: 0, paddingLeft: 18}}
-                            onPress={() => Actions.symptom({
-                                where: arrayKey[i],
-                                symptom: this.props.symptom
-                            })}
-                        >
-                            <Text> {global.language.part[s]} </Text>
-                        </ListItem>
-                    })}
+                    <View style={styles.container}>
+                      {arrayKey.map( (s,i) => {
+                          return <View
+                              key={i}
+                              style={styles.button}
+                              onPress={() => Actions.symptom({
+                                  where: arrayKey[i],
+                                  symptom: this.props.symptom
+                              })}
+                          >
+                            <TouchableHighlight
+                              onPress={() => Actions.symptom({
+                                  where: arrayKey[i],
+                                  symptom: this.props.symptom
+                              })}
+                            >
+                              <Image
+                                source={getImage(engLanguage.part[s])}
+                                style={styles.image}
+                              />
+                            </TouchableHighlight>
+                            <Text
+                              style={styles.text}
+                              onPress={() => Actions.symptom({
+                                  where: arrayKey[i],
+                                  symptom: this.props.symptom
+                              })}
+                            > {global.language.part[s]} </Text>
+                          </View>
+                      })}
+                    </View>
                     </ScrollView>
                     <BottomToolbar>
                         <BottomToolbar.Action
@@ -69,3 +89,25 @@ export default class Part extends React.Component {
         </View>)
     }
 }
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center', 
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center', 
+    width: '45%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    marginLeft: 10,
+    marginTop: 10
+  },
+  text: {
+    textAlign: 'center',
+  },
+  image: {
+  }
+});

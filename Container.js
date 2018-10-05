@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, ListItem, Text, AsyncStorage, View } from 'react-native';
+import { Platform, StatusBar, ListItem, Text, AsyncStorage, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Container, Drawer, Header, Left, Right, Icon, Body, Title, Spinner } from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import SideBar from './SideBar';
@@ -37,15 +37,17 @@ export default class ContainerWithDrawer extends React.Component {
             content={<SideBar ref={ref => {this.sideBar = ref;}} topMargin={topMargin} closeDrawer={() => this.drawer._root.close()}/>}
         >
             <Container style={{marginTop: topMargin}}>
-
                 <Header style={{backgroundColor: '#467bec'}}>
                     <Left>
                         <Icon name="menu" style = {{color: 'white'}} onPress = { () => {this.sideBar.componentWillMount(); this.drawer._root.open()} } />
                     </Left>
                     <Body>
-                        <Title style={{color: 'white'}} onPress={() => Actions.screen1()}>
-                            {this.state.language.navBar.title["home"]}
-                        </Title>
+                      <Title onPress={() => Actions.screen1()} style={{marginLeft: 50, width: 100}}>
+                          <Image
+                            source={require("./asset/img/1x/aya.png")}
+                            style={styles.center}
+                          />
+                      </Title>
                     </Body>
                     <Right>
                     </Right>
@@ -57,3 +59,11 @@ export default class ContainerWithDrawer extends React.Component {
             </View>)
     }
 }
+
+const styles = StyleSheet.create({
+  center: {
+    height: 120,
+    width: 200,
+    resizeMode: 'contain'
+  }
+});
